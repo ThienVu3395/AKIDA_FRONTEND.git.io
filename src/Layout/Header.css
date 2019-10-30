@@ -1,0 +1,118 @@
+.header-top{
+    background-color: #069D86
+}
+
+.logo{
+    background: url(https://d1plicc6iqzi9y.cloudfront.net/sites/all/themes/blacasa/images/logo_hpny.png) center center no-repeat;
+    height: 37px;
+    background-size: cover;
+    text-indent: -500px;
+    width: 150px
+}
+
+.categories{
+    background-color: #11927D;
+    text-align: center;
+    color: #fff;
+    height: 40px;
+    width: 110px
+}
+
+.categories:hover{
+    background-color: #069D86
+}
+
+.form-search{
+    outline: none;
+    border: none
+}
+
+.input-search{
+    outline: none;
+    border: none;
+}
+
+.input-search .input-group-text{
+    color: #808080
+}
+
+.form .row div{
+    color: wheat
+}
+
+.login{
+    color: #fff
+}
+
+.login:hover{
+    color: orange
+}
+
+.regis{
+    border:2px solid white;
+    border-radius: 5px;
+    color: #fff
+}
+
+.regis:hover{
+    border:2px solid orange;
+    color: orange
+}
+
+.color-i{
+    color: #6D6D6D
+}
+
+.color-span{
+    color: #8F8F8F
+}
+
+.header-bottom .header-bottom-content .row span:hover{
+    color: #069D86
+}
+
+.header-bottom .header-bottom-content .row span:hover i{
+    color: #069D86
+}
+
+.header-bottom-item{
+    position: relative;
+}
+
+.header-bottom-item::before{
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    height: 6px;
+    width: 0;
+    background:#069D86
+}
+
+.header-bottom-item:hover::before{
+    width: 100%;
+}
+
+.fb{
+    background-color: #3B5998;
+    color: white
+}
+
+.gg{
+    background-color: #4285F4;
+    color: white
+}
+
+.cart{
+    color: white;
+    font-size:20px
+}
+
+.cart:hover{
+    color: orange
+}
+
+.cart-quantity{
+    height: 5px;
+    width: 10px;
+}

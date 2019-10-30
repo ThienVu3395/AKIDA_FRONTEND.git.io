@@ -1,0 +1,50 @@
+.list-courses:hover{
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.5s
+}
+
+.list-courses .card-body .card-title a{
+    text-decoration: none;
+    color: black
+}
+
+.danhMuc .nav .navitem{
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    padding: 25px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:  center;
+    border-radius: 10px
+}
+
+.danhMuc .nav .navitem:hover{
+    opacity: 0.7;
+}
+
+.linhVuc01{
+    background: url("https://fhww.files.wordpress.com/2019/03/clive_blog_post_image.jpg?quality=80&strip=all&w=500&h=333");
+}
+
+.linhVuc02{
+    background: url("https://i.imgur.com/icJWICw.png");
+}
+
+.linhVuc03{
+    background: url("https://cdn.iphoneincanada.ca/wp-content/uploads/2017/03/android-ios.jpg");
+}
+
+.linhVuc04{
+    background: url("https://www.saokim.com.vn/blog/wp-content/uploads/2019/04/Thiet-ke-logo-don-gian-21.jpg");
+}
+
+.linhVuc05{
+    background: url("https://images-platform.99static.com/hivW0ldgMJFu5cwsKAv3eIo02O8=/fit-in/900x675/99designs-contests-attachments/28/28810/attachment_28810462");
+    margin-top: 10px
+}
+
+.linhVuc06{
+    background: url("https://cdn.dribbble.com/users/5055/screenshots/1195579/mnemologic.jpg");
+    margin-top: 10px
+}

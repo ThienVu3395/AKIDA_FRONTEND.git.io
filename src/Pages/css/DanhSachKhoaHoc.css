@@ -1,0 +1,49 @@
+.one{
+    max-height: 302px;
+}
+
+.one img{
+    border-radius: 20px
+}
+
+.item-card{
+    border-radius: 50px
+}
+
+.item .card-body{
+    background-color: white;
+}
+
+.detail-header{
+    background-color: #097890
+}
+
+.teacher-reviews i{
+    color: #FFED00
+}
+
+.teacher-info-image{
+    height: 30px;
+    width: 30px;
+    vertical-align: middle
+}
+
+.detail-content{
+    background-color: #F3F3F3
+}
+
+.detail-learn{
+    background-color: white;
+    border: 2px solid #D7D7D7
+}
+
+.detail-learn i{
+    color: #17AA37
+}
+
+.bill{
+    background-color: white;
+    border:1px solid #D7D7D7;
+    border-radius: 5px;
+    height: 100%;
+}

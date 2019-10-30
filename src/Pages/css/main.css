@@ -1,0 +1,27 @@
+.item{
+	height: 500px;
+}
+
+.carousel-control-prev{
+	display: none
+}
+
+.carousel-control-next{
+	display: none
+}
+
+.carousel-indicators li{
+	background-color: black;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%
+}
+
+.carousel-indicators li.active{
+	background-color: red;
+}
+
+/* Danh Sách Khóa Học */
+.bg-gray{
+	background-color: #f4f4f4
+}
