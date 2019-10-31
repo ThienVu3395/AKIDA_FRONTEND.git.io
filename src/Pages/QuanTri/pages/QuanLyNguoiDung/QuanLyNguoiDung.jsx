@@ -9,7 +9,6 @@ class QuanLyNguoiDung extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tieuDe: "",
             tuKhoa: ""
         }
     }
@@ -22,12 +21,6 @@ class QuanLyNguoiDung extends Component {
         const input = event.target;
         this.setState({
             [input.name]: input.value
-        })
-    }
-
-    them = () => {
-        this.setState({
-            tieuDe: "Thêm Người Dùng Mới",
         })
     }
 
@@ -136,13 +129,13 @@ class QuanLyNguoiDung extends Component {
                             <th>Hình Ảnh</th>
                             <th>Thông Tin Người Dùng</th>
                             <th>Danh Sách Khóa Học</th>
-                            <th><button className="btn btn-success container mb-3" data-toggle="modal" data-target="#myModal" onClick={() => this.them()}><i className="fas fa-calendar-plus mr-2"></i>Thêm</button></th>
+                            <th><button className="btn btn-success container mb-3" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i>Thêm</button></th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.renderUsers()}
                     </tbody>
-                    <ModalThem tieuDe={this.state.tieuDe}/>
+                    <ModalThem tieuDe={"Thêm Người Dùng Mới"}/>
                 </Table>
 
                 <ul className="pagination pagination-lg justify-content-center">

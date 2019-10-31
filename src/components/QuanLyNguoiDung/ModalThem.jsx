@@ -7,13 +7,15 @@ class ModalThem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Name: "",
-            Password: "123",
-            Email: "",
-            Activated: 1,
-            Created_Time: "2012/12/12",
-            AKIDA_Number: 0,
-            Phone: "",
+            objThem : {
+                Name: "",
+                Password: "123",
+                Email: "",
+                Activated: 1,
+                Created_Time: "2012/12/12",
+                AKIDA_Number: 0,
+                Phone: ""
+            }
         }
     }
 
@@ -23,9 +25,12 @@ class ModalThem extends Component {
 
     layThongTinInput = (event) => {
         const input = event.target;
-        this.setState({
-            [input.name]: input.value
-        })
+        this.setState(
+            this.state.objThem = {
+            ...this.state.objThem,[input.name] : input.value
+            // [input.name]: input.value
+            }
+        )
     }
 
     render() {
@@ -82,7 +87,7 @@ class ModalThem extends Component {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-info container" onClick={() => this.props.themNguoiDung(this.state)}>Xác Nhận Thêm</button>
+                            <button type="button" className="btn btn-info container" onClick={() => this.props.themNguoiDung(this.state.objThem)}><i className="fas fa-user-plus mr-2"></i>Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -92,9 +97,9 @@ class ModalThem extends Component {
 }
 
 const mapStateToProps = (state) => {
-    // return {
-    //     ThongTinCanSua: state.ElearningReducer.ThongTinCanSua
-    // }
+    return {
+        
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

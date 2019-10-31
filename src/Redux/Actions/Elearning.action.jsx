@@ -191,7 +191,7 @@ export const DangNhap = (taiKhoan, matKhau) => {
             matKhau: matKhau
         }
         axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/DangNhap`,
+            url: CauHinh.domain2 + `QuanLyNguoiDung/DangNhap`,
             method: "POST",
             data: objDN,
             headers: {

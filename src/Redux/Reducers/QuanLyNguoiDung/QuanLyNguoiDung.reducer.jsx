@@ -17,6 +17,7 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
             let User = action.User;
             let DanhSachUser = [...state.DanhSachNguoiDung,User];
             state.DanhSachNguoiDung = DanhSachUser;
+            document.getElementById('thoatne').click();
             return {...state};
         }
 
