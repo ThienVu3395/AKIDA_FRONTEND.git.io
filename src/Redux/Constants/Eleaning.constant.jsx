@@ -28,13 +28,7 @@ export const SUA_THONG_TIN_CA_NHAN = 'SUA_THONG_TIN_CA_NHAN';
 // ============================================================= QUẢN TRỊ ======================================
 
 // QUẢN TRỊ NG DÙNG
-export const LAY_DANH_SACH_NGUOI_DUNG = 'LAY_DANH_SACH_NGUOI_DUNG';
-
 export const TIM_KIEM_NGUOI_DUNG = 'TIM_KIEM_NGUOI_DUNG';
-
-export const THEM_NGUOI_DUNG = 'THEM_NGUOI_DUNG';
-
-export const XOA_NGUOI_DUNG = 'XOA_NGUOI_DUNG';
 
 export const XEM_THONG_TIN_SUA = 'XEM_THONG_TIN_SUA';
 

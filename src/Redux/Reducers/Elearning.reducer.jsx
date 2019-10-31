@@ -154,32 +154,10 @@ const ElearningReducer = (state = stateElearning, action) => {
         }
 
         // ------------------------------------- QUẢN TRỊ --------------------------------
-        // Quản trị người dùng
-        case types.LAY_DANH_SACH_NGUOI_DUNG: {
-            state.DanhSachNguoiDung = action.danhSachNguoiDung;
-            return { ...state }
-        }
 
         case types.TIM_KIEM_NGUOI_DUNG: {
             state.DanhSachNguoiDung = action.KetQuaTimkiem;
             return { ...state }
-        }
-
-        case types.THEM_NGUOI_DUNG: {
-            state.DanhSachKhoaHocDaDangKy = [...state.DanhSachNguoiDung, action.User];
-            document.getElementById('thoatne').click();
-            return { ...state };
-        }
-
-        case types.XOA_NGUOI_DUNG: {
-            let ds = [...state.DanhSachNguoiDung];
-            for (let i = 0; i < ds.length; i++) {
-                if (action.taiKhoan === ds[i].taiKhoan) {
-                    ds.splice(i, 1);
-                }
-            }
-            state.DanhSachNguoiDung = ds;
-            return { ...state };
         }
 
         case types.XEM_THONG_TIN_SUA: {

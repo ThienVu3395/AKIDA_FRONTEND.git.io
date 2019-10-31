@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Modal from './../../../../components/Modal';
-import ModalKhoaHoc from './../../../../components/ModalDanhSachKhoaHoc';
-import { LayDanhSachNguoiDung, TimKiemNguoiDung, XoaNguoiDung, XemThongTin, LayDanhSachKhoaHocChuaGhiDanh, layDanhSachKhoaHocDaXetDuyet, layDanhSachKhoaHocChoXetDuyet } from '../../../../Redux/Actions/Elearning.action';
 import { Table } from 'react-bootstrap';
+import { TimKiemNguoiDung, LayDanhSachKhoaHocChuaGhiDanh, layDanhSachKhoaHocDaXetDuyet, layDanhSachKhoaHocChoXetDuyet } from '../../../../Redux/Actions/Elearning.action';
+import {LayDanhSachNguoiDung,XoaNguoiDung} from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 
 class QuanLyNguoiDung extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            trangThai: "",
             tieuDe: "",
-            tuKhoa: "",
-            maNhom: "GP01"
+            tuKhoa: ""
         }
     }
 
     componentDidMount() {
-        this.props.layDanhSachNguoiDung(this.state.maNhom);
+        this.props.layDanhSachNguoiDung();
     }
 
     chonNhom = (event) => {
@@ -25,13 +23,6 @@ class QuanLyNguoiDung extends Component {
         this.setState({
             [input.name]: input.value
         })
-    }
-
-    sua = (taiKhoan) => {
-        this.setState({
-            tieuDe: "Sửa Người Dùng",
-        })
-        this.props.XemThongTinCanSua(taiKhoan)
     }
 
     them = () => {
@@ -58,15 +49,6 @@ class QuanLyNguoiDung extends Component {
         this.props.layDanhSachKhoaHocChoXetDuyet(tk)
     }
 
-    chuaGhiDanh = (tk) => {
-        this.setState({
-            tieuDe: "Danh Sách Chưa Ghi Danh",
-            trangThai: "chuaGD",
-            taiKhoan: tk
-        })
-        this.props.LayDanhSachKhoaHocChuaGhiDanh(tk)
-    }
-
     timKiem = (event) => {
         const input = event.target;
         this.setState({
@@ -86,21 +68,20 @@ class QuanLyNguoiDung extends Component {
                     </td>
                     <td>
                         <div class="alert alert-primary">
-                            <strong>Họ Tên : </strong>{item.hoTen}
+                            <strong>Họ Tên : </strong>{item.Name}
                         </div>
 
                         <div class="alert alert-primary">
-                            <strong>Email : </strong>{item.email}
+                            <strong>Email : </strong>{item.Email}
                         </div>
 
                         <div class="alert alert-primary">
-                            <strong>Số Điện Thoại : </strong>{item.soDt}
+                            <strong>Số Điện Thoại : </strong>{item.Phone}
                         </div>
                     </td>
                     <td>
                         <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalKhoaHoc" onClick={() => this.daXetDuyet(item.taiKhoan)}>Đã Mua</button>
                         <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalKhoaHoc" onClick={() => this.choXetDuyet(item.taiKhoan)}>Chờ Duyệt</button>
-                        {/* <button type="button" className="btn btn-info col-lg-12" data-toggle="modal" data-target="#ModalKhoaHoc" onClick={() => this.chuaGhiDanh(item.taiKhoan)}>Chưa Mua</button> */}
                     </td>
                     <td>
                         <div className="form-group">
@@ -118,9 +99,8 @@ class QuanLyNguoiDung extends Component {
                             </select>
                         </div>
 
-                        <button className="btn btn-danger col-lg-12" onClick={() => this.props.xoaUser(item.taiKhoan)}><i className="fas fa-trash-alt mr-2"></i>Xóa</button>
+                        <button className="btn btn-danger col-lg-12" onClick={() => this.props.xoaUser(item.ID_User)}><i className="fas fa-trash-alt mr-2"></i>Xóa</button>
                     </td>
-                    <ModalKhoaHoc tieuDe={this.state.tieuDe} trangThai={this.state.trangThai} taiKhoan={this.state.taiKhoan} />
                 </tr>
             )
         })
@@ -162,6 +142,7 @@ class QuanLyNguoiDung extends Component {
                     <tbody>
                         {this.renderUsers()}
                     </tbody>
+                    <ModalThem tieuDe={this.state.tieuDe}/>
                 </Table>
 
                 <ul className="pagination pagination-lg justify-content-center">
@@ -169,7 +150,6 @@ class QuanLyNguoiDung extends Component {
                     <li className="page-item"><a className="page-link" href="a">2</a></li>
                     <li className="page-item"><a className="page-link" href="a">3</a></li>
                 </ul>
-                <Modal tieuDe={this.state.tieuDe} />
             </div>
         )
     }
@@ -177,30 +157,26 @@ class QuanLyNguoiDung extends Component {
 
 const MapStateToProps = (state) => {
     return {
-        DanhSachNguoiDung: state.ElearningReducer.DanhSachNguoiDung
+        DanhSachNguoiDung: state.QuanLyNguoiDungReducer.DanhSachNguoiDung
     }
 }
 
 const DispatchStateToProps = (dispatch) => {
     return {
-        layDanhSachNguoiDung: (maNhom) => {
-            dispatch(LayDanhSachNguoiDung(maNhom))
+        layDanhSachNguoiDung: () => {
+            dispatch(LayDanhSachNguoiDung())
         },
 
         TimKiemNguoiDung: (tuKhoa) => {
             dispatch(TimKiemNguoiDung(tuKhoa))
         },
 
-        xoaUser: (tk) => {
+        xoaUser: (idUser) => {
             let cf = window.confirm('Bạn chắc chắn xoá người dùng này chứ ?')
             if (cf) {
-                dispatch(XoaNguoiDung(tk))
+                dispatch(XoaNguoiDung(idUser))
             }
             return;
-        },
-
-        XemThongTinCanSua: (taiKhoan) => {
-            dispatch(XemThongTin(taiKhoan))
         },
 
         layDanhSachKhoaHocDaXetDuyet: (taiKhoan) => {
@@ -210,10 +186,6 @@ const DispatchStateToProps = (dispatch) => {
         layDanhSachKhoaHocChoXetDuyet: (taiKhoan) => {
             dispatch(layDanhSachKhoaHocChoXetDuyet(taiKhoan))
         },
-
-        LayDanhSachKhoaHocChuaGhiDanh: (taiKhoan) => {
-            dispatch(LayDanhSachKhoaHocChuaGhiDanh(taiKhoan))
-        }
     }
 }
 

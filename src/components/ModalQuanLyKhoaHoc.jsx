@@ -7,17 +7,6 @@ class ModalQuanLyKhoaHoc extends Component {
         super(props);
         let tk = JSON.parse(localStorage.getItem('userLogin'));
         this.state = {
-            // maKhoaHoc: (Math.random() * (1000 - 1) + 1).toString(),
-            // biDanh: '',
-            // danhMucKhoaHoc: { maDanhMucKhoaHoc: 'BackEnd', tenDanhMucKhoaHoc: 'Lập Trình BackEnd' },
-            // tenKhoaHoc: '',
-            // moTa: '',
-            // luotXem: 0,
-            // hinhAnh: '',
-            // soLuongHocVien: 0,
-            // maNhom: 'GP01',
-            // ngayTao: '',
-            // nguoiTao: { taiKhoan: tk.taiKhoan, hoTen: tk.hoTen, maLoaiNguoiDung: tk.maLoaiNguoiDung, tenLoaiNguoiDung: 'Giảng Viên' }
             maKhoaHoc: (Math.random() * (1000 - 1) + 1).toString(),
             biDanh: "",
             tenKhoaHoc: "",

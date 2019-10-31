@@ -63,7 +63,7 @@ export const layDanhMucKhoaHoc = () => {
                 danhMucKhoaHoc: result.data
             })
         }).catch((error) => {
-            alert(error.response.data);
+            console.log("haha");
         })
     }
 }
@@ -263,22 +263,6 @@ export const SuaThongTinCaNhan = (objSua) => {
 
 ////////////////////////////////////////////// Quản Trị 
 // =========================================================== Quản Trị người dùng ======================================================
-export const LayDanhSachNguoiDung = (maNhom) => {
-    return (dispatch) => {
-        axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${maNhom}`,
-            method: "GET"
-        }).then((result) => {
-            dispatch({
-                type: types.LAY_DANH_SACH_NGUOI_DUNG,
-                danhSachNguoiDung: result.data
-            })
-        }).catch((error) => {
-            console.log(error.response.data);
-        })
-    }
-}
-
 export const TimKiemNguoiDung = (tuKhoa) => {
     return (dispatch) => {
         axios({
@@ -297,47 +281,6 @@ export const TimKiemNguoiDung = (tuKhoa) => {
             }
         }).catch((error) => {
             console.log(error.response.data);
-        })
-    }
-}
-
-export const ThemNguoiDung = (objThem) => {
-    return (dispatch) => {
-        axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/ThemNguoiDung`,
-            method: "POST",
-            data: objThem,
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem(CauHinh.token)
-            }
-        }).then((result) => {
-            Swal.fire("Thông Báo", "Thêm Người Dùng Thành Công", "success");
-            dispatch({
-                type: types.THEM_NGUOI_DUNG,
-                User: result.data
-            })
-        }).catch((error) => {
-            Swal.fire("Thông Báo", error.response.data, "error");
-        })
-    }
-}
-
-export const XoaNguoiDung = (taiKhoan) => {
-    return (dispatch) => {
-        axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`,
-            method: "DELETE",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem(CauHinh.token)
-            }
-        }).then((result) => {
-            Swal.fire("Thông Báo", result.data, "success");
-            dispatch({
-                type: types.XOA_NGUOI_DUNG,
-                taiKhoan: taiKhoan
-            })
-        }).catch((error) => {
-            Swal.fire("Thông Báo", error.response.data, "error");
         })
     }
 }
@@ -488,26 +431,6 @@ export const themKhoaHoc = (objThem) => {
         .catch((error) => {
             Swal.fire("Thông Báo", error.response.data, "error");
         })
-
-        // axios({
-        //     url: CauHinh.domain + `QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
-        //     method: "POST",
-        //     data: objThem.hinhAnh,
-        //     headers: {
-        //         "Authorization": "Bearer " + localStorage.getItem(CauHinh.token)
-        //     }
-        // }).then((result) => {
-        //     console.log(result.data)
-        //     Swal.fire("Thông Báo", "Thêm Khóa Học Thành Công", "success");
-        //     let thoat = document.getElementById("thoatne");
-        //     thoat.click();
-        //     dispatch({
-        //         type: types.THEM_KHOA_HOC,
-        //         objThem: result.data
-        //     })
-        // }).catch((error) => {
-        //     Swal.fire("Thông Báo", error.response.data, "error");
-        // })
     }
 }
 
