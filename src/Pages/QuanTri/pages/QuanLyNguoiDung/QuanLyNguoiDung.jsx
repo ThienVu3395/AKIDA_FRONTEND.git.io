@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import { TimKiemNguoiDung, LayDanhSachKhoaHocChuaGhiDanh, layDanhSachKhoaHocDaXetDuyet, layDanhSachKhoaHocChoXetDuyet } from '../../../../Redux/Actions/Elearning.action';
-import {LayDanhSachNguoiDung,XoaNguoiDung} from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import { LayDanhSachNguoiDung, XoaNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
+import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
 
 class QuanLyNguoiDung extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tuKhoa: ""
+            tuKhoa: "",
+            trangThaiSua: "0"
         }
     }
 
@@ -73,26 +75,34 @@ class QuanLyNguoiDung extends Component {
                         </div>
                     </td>
                     <td>
-                        <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalKhoaHoc" onClick={() => this.daXetDuyet(item.taiKhoan)}>Đã Mua</button>
-                        <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalKhoaHoc" onClick={() => this.choXetDuyet(item.taiKhoan)}>Chờ Duyệt</button>
+                        <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalDanhSachNguoiDung">Đã Mua</button>
+                        <button type="button" className="btn btn-info col-lg-12 mb-3" data-toggle="modal" data-target="#ModalDanhSachNguoiDung">Chờ Duyệt</button>
                     </td>
                     <td>
-                        <div className="form-group">
-                            <select className="form-control">
-                                <option>--Trạng Thái--</option>
-                                <option>Ẩn</option>
-                                <option>Hiển Thị</option>
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <select className="form-control">
-                                <option>--Phân Quyền--</option>
-                                <option>Giảng Viên</option>
-                                <option>Admin</option>
-                            </select>
-                        </div>
-
-                        <button className="btn btn-danger col-lg-12" onClick={() => this.props.xoaUser(item.ID_User)}><i className="fas fa-trash-alt mr-2"></i>Xóa</button>
+                        <button className="btn btn-danger col-lg-12 mb-3" onClick={() => this.props.xoaUser(item.ID_User)}><i className="fas fa-trash-alt mr-2"></i>Xóa</button>
+                        {this.state.trangThaiSua === "0" ?
+                            <button className="btn btn-primary col-lg-12" onClick={()=>this.setState({trangThaiSua : "1"})}><i className="fas fa-edit mr-2"></i>Tùy Chỉnh</button> :
+                            <div className="container">
+                                <div className="row">
+                                    <button className="btn btn-info col-lg-6"><i className="fas fa-edit mr-2"></i>Cập Nhật</button>
+                                    <button className="btn btn-primary col-lg-6" onClick={()=>this.setState({trangThaiSua : "0"})}><i class="fas fa-window-close mr-2"></i>Hủy</button>
+                                </div>
+                                <div className="form-group mt-3">
+                                    <label>Trạng Thái</label>
+                                    <select className="form-control">
+                                        <option>Ẩn</option>
+                                        <option>Hiển Thị</option>
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <label>Phân Quyền</label>
+                                    <select className="form-control">
+                                        <option>Giảng Viên</option>
+                                        <option>Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
                     </td>
                 </tr>
             )
@@ -113,12 +123,21 @@ class QuanLyNguoiDung extends Component {
                 <div className="row">
                     <div className="form-group col-lg-3">
                         <select className="form-control" name="maNhom" onChange={this.chonNhom}>
+                            <option>---Trạng Thái---</option>
                             <option value="GP01">GP01</option>
                             <option value="GP02">GP02</option>
                         </select>
                     </div>
 
-                    <div className="form-group col-lg-2">
+                    <div className="form-group col-lg-3">
+                        <select className="form-control" name="maNhom" onChange={this.chonNhom}>
+                            <option>---Quyền---</option>
+                            <option value="GP01">TeamMember</option>
+                            <option value="GP02">User</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group col-lg-3">
                         <button className="form-control btn btn-success" onClick={() => this.props.layDanhSachNguoiDung(this.state.maNhom)}><i className="fas fa-sort mr-2"></i>Lọc</button>
                     </div>
                 </div>
@@ -135,7 +154,8 @@ class QuanLyNguoiDung extends Component {
                     <tbody>
                         {this.renderUsers()}
                     </tbody>
-                    <ModalThem tieuDe={"Thêm Người Dùng Mới"}/>
+                    <ModalThem tieuDe={"Thêm Người Dùng Mới"} />
+                    <ModalDanhSach/>
                 </Table>
 
                 <ul className="pagination pagination-lg justify-content-center">

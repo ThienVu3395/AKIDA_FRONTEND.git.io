@@ -7,7 +7,7 @@ import * as CauHinh from '../../../common/CauHinh';
 export const LayDanhSachNguoiDung = () => {
     return (dispatch) => {
         axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/LayDanhSachNguoiDung`,
+            url: CauHinh.domain + `API/QuanLyNguoiDung/LayDanhSachNguoiDung`,
             method: "GET",
         }).then((result) => {
             dispatch({
@@ -23,8 +23,9 @@ export const LayDanhSachNguoiDung = () => {
 
 export const ThemNguoiDung = (objUser) => {
     return (dispatch) => {
+        console.log(objUser)
         axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/ThemNguoiDung`,
+            url: CauHinh.domain + `API/QuanLyNguoiDung/ThemNguoiDung`,
             method: "POST",
             data: objUser,
         }).then((result) => {

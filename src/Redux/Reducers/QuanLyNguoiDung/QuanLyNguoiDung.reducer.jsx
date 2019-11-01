@@ -1,5 +1,5 @@
 import * as types from '../../Constants/QuanLyNguoiDung/QuanLyNguoiDung.constants';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 let stateQuanLyNguoiDung = {
     DanhSachNguoiDung : []

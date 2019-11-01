@@ -1,34 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { themKhoaHoc, layDanhMucKhoaHoc , capNhatKhoaHoc } from '../Redux/Actions/Elearning.action';
 
-class ModalQuanLyKhoaHoc extends Component {
+class ModalThem extends Component {
     constructor(props) {
         super(props);
         let tk = JSON.parse(localStorage.getItem('userLogin'));
         this.state = {
-            maKhoaHoc: (Math.random() * (1000 - 1) + 1).toString(),
-            biDanh: "",
-            tenKhoaHoc: "",
-            moTa: "",
-            luotXem: 0,
-            danhGia: 0,
-            hinhAnh: "",
-            maNhom: "GP01",
-            ngayTao: "30/08/2019",
-            maDanhMucKhoaHoc: "",
-            taiKhoanNguoiTao: tk.taiKhoan
         };
     }
 
     componentDidMount() {
-        this.props.layDanhMuc()
+        //this.props.layDanhMuc()
     }
-
-    componentWillReceiveProps = (nextProps) => {
-        this.setState(nextProps.ThongTinKhoaHocCanSua);
-    }
-
 
     layThongTinInput = (event) => {
         const input = event.target;
@@ -44,39 +27,9 @@ class ModalQuanLyKhoaHoc extends Component {
         })
     }
 
-    renderTenKhoaHoc = (maKhoaHoc) => {
-        if (maKhoaHoc === "TuDuy") {
-            return "Tư duy lập trình";
-        }
-        else if (maKhoaHoc === "FullStack") {
-            return "Lập trình Full Stack";
-        }
-        else if (maKhoaHoc === "FrontEnd") {
-            return "Lập trình Front end";
-        }
-        else if (maKhoaHoc === "DiDong") {
-            return "Lập trình di động";
-        }
-        else if (maKhoaHoc === "Design") {
-            return "Thiết kế Web";
-        }
-        else if (maKhoaHoc === "BackEnd") {
-            return "Lập trình Backend";
-        }
-    }
-
-    renderDanhMuc = () => {
-        let content = this.props.danhSachDanhMuc.map((item, key) => {
-            return (
-                <option key={key} value={item.maDanhMuc}>{item.tenDanhMuc}</option>
-            )
-        })
-        return content;
-    }
-
     render() {
         return (
-            <div className="modal fade" id="ModalQLKH">
+            <div className="modal fade" id="ModalSua">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         {/* Modal Header */}
@@ -89,15 +42,15 @@ class ModalQuanLyKhoaHoc extends Component {
                             <div className="container">
                                 <div className="form-group">
                                     <label htmlFor="tenKH">Tên Khóa Học :</label>
-                                    <input type="text" className="form-control" name="tenKhoaHoc" onChange={this.layThongTinInput} value={this.state.tenKhoaHoc} />
+                                    <input type="text" className="form-control" name="tenKhoaHoc" onChange={this.layThongTinInput} />
                                 </div>
 
                                 <div className="row">
                                     <div className="form-group col-6">
                                         <label htmlFor="sel1">Danh Mục :</label>
                                         {/* <select className="form-control" name="danhMucKhoaHoc" onChange={this.layThongTinDanhMuc} value={this.state.danhMucKhoaHoc.maDanhMucKhoaHoc}> */}
-                                        <select className="form-control" name="maDanhMucKhoaHoc" onChange={this.layThongTinInput} defaultValue={this.state.maDanhMucKhoaHoc}>
-                                            {this.renderDanhMuc()}
+                                        <select className="form-control" name="maDanhMucKhoaHoc" onChange={this.layThongTinInput}>
+                                            {/* {this.renderDanhMuc()} */}
                                         </select>
                                     </div>
 
@@ -122,8 +75,8 @@ class ModalQuanLyKhoaHoc extends Component {
 
                                 {
                                     this.props.TrangThaiQuanLy === true ? 
-                                    <button className="btn btn-info container" onClick={() => this.props.themKhoaHoc(this.state)}>Xác Nhận Thêm</button> : 
-                                    <button className="btn btn-info container" onClick={() => this.props.capNhatKhoaHoc(this.state)}>Xác Nhận Sửa</button>
+                                    <button className="btn btn-info container" >Xác Nhận Thêm</button> : 
+                                    <button className="btn btn-info container">Xác Nhận Sửa</button>
                                 }
                             </div>
                         </div>
@@ -136,34 +89,14 @@ class ModalQuanLyKhoaHoc extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        danhSachDanhMuc: state.ElearningReducer.danhSachDanhMuc,
-        ThongTinKhoaHocCanSua: state.ElearningReducer.ThongTinKhoaHocCanSua,
-        TrangThaiQuanLy: state.ElearningReducer.TrangThaiXuLyQLKH
+
     }
 }
 
 const DispatchStateToProps = (dispatch) => {
     return {
-        layDanhMuc: () => {
-            dispatch(layDanhMucKhoaHoc())
-        },
-
-        themKhoaHoc: (objThem) => {
-            let cf = window.confirm("Bạn Chắc Chắn Thêm 1 Khóa Học Mới Với Các Thông Tin Bên Dưới Chứ ?");
-            if (cf) {
-                dispatch(themKhoaHoc(objThem));
-            }
-            return;
-        },
-
-        capNhatKhoaHoc : (objSua) => {
-            let cf = window.confirm("Bạn Chắc Chắn Sửa Khóa Học Này Với Các Thông Tin Trên Chứ ?");
-            if (cf) {
-                dispatch(capNhatKhoaHoc(objSua));
-            }
-            return;
-        }
+    
     }
 }
 
-export default connect(mapStateToProps, DispatchStateToProps)(ModalQuanLyKhoaHoc)
+export default connect(mapStateToProps, DispatchStateToProps)(ModalThem)

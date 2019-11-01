@@ -62,19 +62,6 @@ const ElearningReducer = (state = stateElearning, action) => {
             }
             return { ...state }
         }
-
-        //Lấy danh mục khóa học
-        case types.LAY_DANH_MUC_KHOA_HOC: {
-            state.danhSachDanhMuc = action.danhMucKhoaHoc;
-            return { ...state }
-        }
-
-        //Lấy Khóa học theo danh mục
-        case types.LAY_KHOA_HOC_THEO_DANH_MUC: {
-            state.danhSachKhoaHocTheoDanhMuc = action.khoaHocDanhMuc;
-            return { ...state }
-        }
-
         //Đăng ký học
         case types.DANG_KY_HOC: {
             var i = document.getElementById("dk");

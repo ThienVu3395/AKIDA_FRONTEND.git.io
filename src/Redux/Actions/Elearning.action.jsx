@@ -52,54 +52,6 @@ export const layChiTietKhoaHoc = (maKhoaHoc) => {
     }
 }
 
-export const layDanhMucKhoaHoc = () => {
-    return (dispatch) => {
-        axios({
-            url: CauHinh.domain + `QuanLyKhoaHoc/LayDanhMucKhoaHoc`,
-            method: "GET"
-        }).then((result) => {
-            dispatch({
-                type: types.LAY_DANH_MUC_KHOA_HOC,
-                danhMucKhoaHoc: result.data
-            })
-        }).catch((error) => {
-            console.log("haha");
-        })
-    }
-}
-
-export const layKhoaHocTheoDanhMuc =  (maDanhMuc, maNhom) => {
-    return (dispatch) => {
-        if (maDanhMuc === "all") {
-            axios({
-                url: CauHinh.domain + `QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`,
-                method: "GET"
-            }).then((result) => {
-                dispatch({
-                    type: types.LAY_KHOA_HOC_THEO_DANH_MUC,
-                    khoaHocDanhMuc: result.data
-                })
-            }).catch((error) => {
-                Swal.fire("Thông Báo", error.response.data, 'error');
-            })
-        }
-
-        else {
-            axios({
-                url: CauHinh.domain + `QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=${maNhom}`,
-                method: "GET"
-            }).then((result) => {
-                dispatch({
-                    type: types.LAY_KHOA_HOC_THEO_DANH_MUC,
-                    khoaHocDanhMuc: result.data
-                })
-            }).catch((error) => {
-                Swal.fire("Thông Báo", error.response.data, 'error');
-            })
-        }
-    }
-}
-
 export const dangKyHoc = (idKH) => {
     return (dispatch) => {
         let taiKhoan = JSON.parse(localStorage.getItem(CauHinh.userLogin));

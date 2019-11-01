@@ -4,10 +4,6 @@ export const TIM_KIEM_KHOA_HOC = 'TIM_KIEM_KHOA_HOC';
 
 export const LAY_CHI_TIET_KHOA_HOC = 'LAY_CHI_TIET_KHOA_HOC'; 
 
-export const LAY_DANH_MUC_KHOA_HOC = 'LAY_DANH_MUC_KHOA_HOC'; 
-
-export const LAY_KHOA_HOC_THEO_DANH_MUC = 'LAY_KHOA_HOC_THEO_DANH_MUC'; 
-
 export const THEM_VAO_GIO_HANG = 'THEM_VAO_GIO_HANG'; 
 
 export const DANG_KY_HOC = 'DANG_KY_HOC'; 
