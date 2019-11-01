@@ -6,14 +6,13 @@ import * as CauHinh from '../../../common/CauHinh';
 export const LayDanhSachDanhMuc = () => {
     return (dispatch) => {
         axios({
-            url: CauHinh.domain + `API/LayDanhSachNguoiDung`,
+            url: CauHinh.domain + `API/LayDanhSachDanhMuc`,
             method: "GET",
         }).then((result) => {
-            console.log(result.data)
-            // dispatch({
-            //     type: types.LAY_DANH_SACH_DANH_MUC,
-            //     DanhSachUser: result.data
-            // })
+            dispatch({
+                type: types.LAY_DANH_SACH_DANH_MUC,
+                DanhSachDanhMuc : result.data
+            })
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
         })
@@ -22,18 +21,16 @@ export const LayDanhSachDanhMuc = () => {
 
 export const LayDanhSachKhoaHocTheoDanhMuc = (idCategory) => {
     return (dispatch) => {
-        console.log(idCategory)
-        // axios({
-        //     url: CauHinh.domain + `API/LayDanhSachKhoaHocTheoDanhMuc?CategoryID=${idCategory}`,
-        //     method: "GET",
-        // }).then((result) => {
-        //     console.log(result.data)
-        //     // dispatch({
-        //     //     type: types.LAY_DANH_SACH_DANH_MUC,
-        //     //     DanhSachUser: result.data
-        //     // })
-        // }).catch((error) => {
-        //     Swal.fire("Thông Báo", "Có Lổi", "error");
-        // })
+        axios({
+            url: CauHinh.domain + `API/LayDanhSachKhoaHocTheoDanhMuc?CategoryID=${idCategory}`,
+            method: "GET",
+        }).then((result) => {
+            dispatch({
+                type: types.LAY_DANH_SACH_KHOA_HOC_THEO_DANH_MUC,
+                DanhSachKhoaHocTheoDanhMuc : result.data
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", "Có Lổi", "error");
+        })
     }
 }

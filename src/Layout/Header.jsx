@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
-import { timKiemKhoaHoc, DangKy, DangNhap, DangXuat } from '../Redux/Actions/Elearning.action';
+import { DangNhap } from '../Redux/Actions/Elearning.action';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ class Header extends Component {
                         <NavLink className="dropdown-item" to='/kich-hoat-khoa-hoc'><i className="fas fa-key mr-2"></i>Kích Hoạt Khóa Học</NavLink>
                         <NavLink className="dropdown-item" to='/nap-the'><i className="fa fa-credit-card mr-2" aria-hidden="true"></i>Nạp Thẻ</NavLink>
                         <hr />
-                        <button className="dropdown-item" onClick={() => this.props.dangXuat()}><i className="fas fa-sign-out-alt mr-2"></i>Đăng Xuất</button>
+                        <button className="dropdown-item"><i className="fas fa-sign-out-alt mr-2"></i>Đăng Xuất</button>
                     </div>
                 </div>
             )
@@ -50,13 +50,13 @@ class Header extends Component {
                         <div className="row">
                             <div className="col-lg-7 col-md-10">
                                 <div className="list-menu row">
-                                    <NavLink to="/trang-chu" className="logo mr-2">asd</NavLink>
+                                    <NavLink to="/trang-chu" className="logo mr-2"></NavLink>
                                     <div className="input-form col-6 pt-1">
                                         <form>
                                             <div className="input-group mb-3 input-group-sm">
                                                 <input type="text" className="form-control form-search" name="timKiem" placeholder="Nhập Tên Khóa Học..." onChange={this.layThongTinInput} />
                                                 <div className="input-group-prepend input-search">
-                                                    <NavLink to='/ket-qua' className="input-group-text" onClick={() => this.props.timKiem("GP01", this.state.timKiem)}><i className="fas fa-search"></i></NavLink>
+                                                    <NavLink to='/ket-qua' className="input-group-text"><i className="fas fa-search"></i></NavLink>
                                                 </div>
                                             </div>
                                         </form>
@@ -113,14 +113,6 @@ class Header extends Component {
                                     {/* Form Đăng Ký */}
                                     <div id="menu1" className="container tab-pane fade"><br />
                                         <div className="row">
-                                            {/* <div className="form-group col-6">
-                                                <label>Loại Người Dùng :</label>
-                                                <select className="form-control" defaultValue={this.state.maLoaiNguoiDung} name="maLoaiNguoiDung" onChange={this.layThongTinInput}>
-                                                    <option value="HV">Học Viên</option>
-                                                    <option value="GV">Giảng Viên</option>
-                                                </select>
-                                            </div> */}
-
                                             <div className="form-group col-12">
                                                 <label>Mã Nhóm :</label>
                                                 <select className="form-control" name="maNhom" defaultValue={this.state.maNhom} onChange={this.layThongTinInput}>
@@ -150,25 +142,6 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-                {/* Close Modal Đăng Nhập Đăng Ký */}
-
-                {/* Modal Giỏ Hàng */}
-                {/* <div className="modal fade" id="giohang">
-                    <div className="modal-dialog">
-                        <div className="modal-content container"> */}
-                {/* Modal Header */}
-                {/* <div className="modal-header">
-                                <h2>Giỏ Hàng Của Bạn</h2>
-                                <button type="button" className="close" data-dismiss="modal">×</button>
-                            </div> */}
-
-                {/* Modal Body */}
-                {/* <div className="modal-body">
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                {/* Close Modal Giỏ Hàng */}
 
                 {/* /Header-Top */}
                 <div className="header-bottom">
@@ -214,25 +187,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        timKiem: (maNhom, tukhoa) => {
-            dispatch(timKiemKhoaHoc(maNhom, tukhoa));
-        },
-
-        dangKy: (tk, mk, ht, sdt, mn, mail) => {
-            let cf = window.confirm('Bạn chắc chắn đăng ký tài khoản với những thông tin trên chứ ?')
-            if (cf) {
-                dispatch(DangKy(tk, mk, ht, sdt, mn, mail))
-            }
-            return
-        },
-
         dangNhap: (taiKhoan, matKhau) => {
             dispatch(DangNhap(taiKhoan, matKhau))
         },
-
-        dangXuat: () => {
-            dispatch(DangXuat())
-        }
     }
 }
 

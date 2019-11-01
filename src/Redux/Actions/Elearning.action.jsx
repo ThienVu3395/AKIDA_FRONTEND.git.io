@@ -3,21 +3,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import * as CauHinh from '../../common/CauHinh';
 
-export const layDanhSachKhoaHoc = (maNhom) => {
-    return (dispatch) => {
-        axios({
-            url: CauHinh.domain + `QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`,
-            method: "GET"
-        }).then((result) => {
-            dispatch({
-                type: types.LAY_DANH_SACH_KHOA_HOC,
-                dsKhoaHoc: result.data,
-            })
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
-}
 
 export const timKiemKhoaHoc = (maNhom, tuKhoa) => {
     return (dispatch) => {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { TimKiemNguoiDung, LayDanhSachKhoaHocChuaGhiDanh, layDanhSachKhoaHocDaXetDuyet, layDanhSachKhoaHocChoXetDuyet } from '../../../../Redux/Actions/Elearning.action';
 import { LayDanhSachNguoiDung, XoaNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
@@ -24,34 +23,6 @@ class QuanLyNguoiDung extends Component {
         this.setState({
             [input.name]: input.value
         })
-    }
-
-    daXetDuyet = (tk) => {
-        this.setState({
-            tieuDe: "Danh Sách Đã Xét Duyệt",
-            trangThai: "daXD",
-            taiKhoan: tk
-        })
-        this.props.layDanhSachKhoaHocDaXetDuyet(tk)
-    }
-
-    choXetDuyet = (tk) => {
-        this.setState({
-            tieuDe: "Danh Sách Chờ Xét Duyệt",
-            trangThai: "choXD",
-            taiKhoan: tk
-        })
-        this.props.layDanhSachKhoaHocChoXetDuyet(tk)
-    }
-
-    timKiem = (event) => {
-        const input = event.target;
-        this.setState({
-            tuKhoa: input.value
-        })
-        if (this.state.tuKhoa === "") {
-            this.props.layDanhSachNguoiDung();
-        }
     }
 
     renderUsers = () => {
@@ -116,7 +87,7 @@ class QuanLyNguoiDung extends Component {
                 <div className="input-group mb-3">
                     <input type="text" className="form-control" name="tuKhoa" placeholder="Tìm người dùng theo tài khoản hoặc họ tên..." onKeyUp={this.timKiem} />
                     <div className="input-group-append">
-                        <button className="btn btn-success" onClick={() => this.props.TimKiemNguoiDung(this.state.tuKhoa)}><i className="fas fa-search"></i></button>
+                        <button className="btn btn-success"><i className="fas fa-search"></i></button>
                     </div>
                 </div>
 
@@ -138,7 +109,7 @@ class QuanLyNguoiDung extends Component {
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <button className="form-control btn btn-success" onClick={() => this.props.layDanhSachNguoiDung(this.state.maNhom)}><i className="fas fa-sort mr-2"></i>Lọc</button>
+                        <button className="form-control btn btn-success"><i className="fas fa-sort mr-2"></i>Lọc</button>
                     </div>
                 </div>
 
@@ -180,24 +151,12 @@ const DispatchStateToProps = (dispatch) => {
             dispatch(LayDanhSachNguoiDung())
         },
 
-        TimKiemNguoiDung: (tuKhoa) => {
-            dispatch(TimKiemNguoiDung(tuKhoa))
-        },
-
         xoaUser: (idUser) => {
             let cf = window.confirm('Bạn chắc chắn xoá người dùng này chứ ?')
             if (cf) {
                 dispatch(XoaNguoiDung(idUser))
             }
             return;
-        },
-
-        layDanhSachKhoaHocDaXetDuyet: (taiKhoan) => {
-            dispatch(layDanhSachKhoaHocDaXetDuyet(taiKhoan))
-        },
-
-        layDanhSachKhoaHocChoXetDuyet: (taiKhoan) => {
-            dispatch(layDanhSachKhoaHocChoXetDuyet(taiKhoan))
         },
     }
 }
