@@ -23,7 +23,6 @@ export const LayDanhSachNguoiDung = () => {
 
 export const ThemNguoiDung = (objUser) => {
     return (dispatch) => {
-        console.log(objUser)
         axios({
             url: CauHinh.domain + `API/QuanLyNguoiDung/ThemNguoiDung`,
             method: "POST",
@@ -43,16 +42,16 @@ export const ThemNguoiDung = (objUser) => {
 export const XoaNguoiDung = (idUser) => {
     return (dispatch) => {
         axios({
-            url: CauHinh.domain + `QuanLyNguoiDung/XoaNguoiDung?idUser=${idUser}`,
+            url: CauHinh.domain + `API/QuanLyNguoiDung/XoaNguoiDung?idUser=${idUser}`,
             method: "DELETE",
         }).then((result) => {
-            console.log(result.data)
-            // dispatch({
-            //     type: types.LAY_DANH_SACH_NGUOI_DUNG,
-            //     DanhSachUser: result.data
-            // })
+            Swal.fire("Thông Báo", result.data , "success");
+            dispatch({
+                type: types.XOA_NGUOI_DUNG,
+                idUser: idUser
+            })
         }).catch((error) => {
-            Swal.fire("Thông Báo", "Có Lổi", "error");
+            Swal.fire("Thông Báo", error.response.data, "error");
         })
     }
 }

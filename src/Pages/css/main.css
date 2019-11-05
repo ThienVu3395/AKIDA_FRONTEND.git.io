@@ -25,3 +25,22 @@
 .bg-gray{
 	background-color: #f4f4f4
 }
+
+.background{
+	background: url(https://d1plicc6iqzi9y.cloudfront.net/sites/all/themes/blacasa/images/bg/bg-wall.png) center center no-repeat;
+	background-size: cover;
+	height: 500px;
+}
+
+.bg-bold-gray .container .row p{
+	font-size:20px;
+	margin-top:2px
+}
+
+.bg-bold-gray .container .row div{
+	color:white;
+}
+
+.bg-bold-gray .container .row div:hover{
+	color:orangered
+}

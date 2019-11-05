@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class ModalThem extends Component {
     constructor(props) {
         super(props);
-        let tk = JSON.parse(localStorage.getItem('userLogin'));
+        //let tk = JSON.parse(localStorage.getItem('userLogin'));
         this.state = {
         };
     }

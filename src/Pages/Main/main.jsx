@@ -8,11 +8,12 @@ import DanhSachKhoaHoc from './DanhSachKhoaHoc/DanhSachKhoaHoc';
 
 function SampleNextArrow() {
     return (
-      <div
-        style={{display: "none"}}
-      />
+        <div
+            style={{ display: "none" }}
+        />
     );
 }
+
 export default class main extends Component {
     render() {
         const settings = {
@@ -22,8 +23,8 @@ export default class main extends Component {
             autoplay: true,
             speed: 2000,
             autoplaySpeed: 2000,
-            nextArrow: <SampleNextArrow/>,
-            prevArrow: <SampleNextArrow/>
+            nextArrow: <SampleNextArrow />,
+            prevArrow: <SampleNextArrow />
         };
         return (
             <div>
@@ -59,9 +60,31 @@ export default class main extends Component {
                 </Slider>
                 {/* Đóng Banner */}
 
-                
+                <div className="bg-bold-gray">
+                    <div className="container pt-3">
+                        <div className="row">
+                            <div className="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <i className="fas fa-graduation-cap" style={{ fontSize: "50px" }}></i>
+                                <p>7,010+ Gia Sư</p>
+                                <p>Khắp cả nước</p>
+                            </div>
 
+                            <div className="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <i className="fas fa-user" style={{ fontSize: "50px" }}></i>
+                                <p>7,010+ Gia Sư</p>
+                                <p>Khắp cả nước</p>
+                            </div>
+
+                            <div className="col-lg-4 col-md-4 col-sm-4 text-center">
+                                <i className="far fa-handshake" style={{ fontSize: "50px" }}></i>
+                                <p>7,010+ Gia Sư</p>
+                                <p>Khắp cả nước</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {/* Danh Sách Khóa Học*/}
+
                 <div className="p-3">
                     <DanhSachKhoaHoc />
                 </div>

@@ -3,11 +3,15 @@ import Slider from "react-slick";
 import { connect } from 'react-redux';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
-import { themVaoGioHang, dangKyHoc , layChiTietKhoaHoc} from './../Redux/Actions/Elearning.action'
+import {LayChiTietKhoaHoc} from '../Redux/Actions/HomePage/HomePage.action';
 
 class ChiTietKhoaHoc extends Component {
-    render() {
+    componentDidMount(){
         let idKhoaHoc = this.props.match.params.idKhoaHoc;
+        this.props.LayChiTiet(idKhoaHoc);
+    }
+    render() {
+        //console.log(this.props.KhoaHocChiTiet)
         const settings = {
             infinite: true,
             centerPadding: "60px",
@@ -47,8 +51,8 @@ class ChiTietKhoaHoc extends Component {
                     <section className="detail-header text-white p-3">
                         <div className="container">
                             <p>Trang Chủ >> Ngoại Ngữ >> Tự Học Tiếng Hàn Thật Dễ</p>
-                            <h2>Tự học tiếng Hàn thật dễ</h2>
-                            <p>Dựa trên giáo trình Tiếng Hàn tổng hợp dành cho người Việt - Quyển 3, khóa học giúp bạn tự học Tiếng Hàn ngay tại nhà, đạt trình độ trung cấp 1</p>
+                            <h2>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Name}</h2>
+                            <p>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Short_Description}</p>
 
                             <div className="row">
                                 <div className="teacher-info col-lg-4">
@@ -56,7 +60,7 @@ class ChiTietKhoaHoc extends Component {
                                         <img src="https://static.unica.vn/uploads/thaoptt09@gmail.com/September262017946am_nguyen-van-khanh_thumb.jpg" className="rounded-circle teacher-info-image" alt="asd" />
                                     </div>
 
-                                    <p>Nguyễn Văn Khánh</p>
+                                    <p>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Author}</p>
                                 </div>
 
                                 <div className="teacher-reviews col-lg-4">
@@ -393,7 +397,7 @@ class ChiTietKhoaHoc extends Component {
                                                 </div>
 
                                                 <div className="col-lg-9">
-                                                    <a href="asd.html" className="text-info">Dương Tích Đạt ( {this.props.itemChiTiet.maKhoaHoc} )</a>
+                                                    <a href="asd.html" className="text-info">Dương Tích Đạt</a>
                                                     <p className="text-muted">Giảng viên</p>
                                                     <p>Giảng viên Dương Tích Đạt - tốt nghiệp Thạc sĩ Khoa học máy tính tại Trường Đại học Công nghệ Thông tin - Đại học Quốc gia TP.HCM, có kinh nghiệm giảng dạy tại các trường:</p>
                                                     <p>Trường Đại học Khoa học Tự nhiên TP. HCM - phụ trách giảng dạy ứng dụng CNTT trong thư viện, xây dựng thư viện điện tử, thư viện số.</p>
@@ -560,8 +564,7 @@ class ChiTietKhoaHoc extends Component {
 
                                         </div>
                                         <p><i className="fas fa-tachometer-alt mr-2"></i><b>Thời gian ưu đãi còn 1 ngày</b></p>
-                                        <button className="container btn btn-danger mb-3" id="dk" onClick={() => this.props.DangKyHoc(idKhoaHoc)}><b><i className="fas fa-clipboard-check mr-2"></i>ĐĂNG KÝ HỌC</b></button>
-                                        {/* <button className="btn btn-info container" ref="them" onClick={()=>this.props.themVaoGio()}><b><i className="fas fa-cart-plus mr-2"></i>THÊM VÀO GIỎ HÀNG</b></button> */}
+                                        <button className="container btn btn-danger mb-3" id="dk"><b><i className="fas fa-clipboard-check mr-2"></i>ĐĂNG KÝ HỌC</b></button>
                                         <p className="text-center mt-2">Hoàn tiền trong 7 ngày nếu không hài lòng</p>
 
                                         <div className="bill-content">
@@ -588,27 +591,15 @@ class ChiTietKhoaHoc extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        itemChiTiet: state.ElearningReducer.khoaHocChiTiet,
+        KhoaHocChiTiet : state.HomePageReducer.KhoaHocChiTiet,
         trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        themVaoGio: () => {
-            dispatch(themVaoGioHang());
-        },
-
-        layChiTiet : (maKH) => {
-            dispatch(layChiTietKhoaHoc(maKH))
-        },
-
-        DangKyHoc: (idKH) => {
-            if (localStorage.length === 0) {
-                alert("Vui lòng đăng nhập để đăng ký khóa học này");
-                return;
-            }
-            dispatch(dangKyHoc(idKH));
+        LayChiTiet : (idKhoaHoc) => {
+            dispatch(LayChiTietKhoaHoc(idKhoaHoc))
         }
     }
 }

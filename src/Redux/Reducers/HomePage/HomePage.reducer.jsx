@@ -3,6 +3,10 @@ import * as types from '../../Constants/HomePage/HomePage.constant';
 let stateHomePage = {
     DanhSachDanhMuc : [],
     DanhSachKhoaHocTheoDanhMuc : [],
+    DanhSachKhoaHocMoiNhat : [],
+    DanhSacKhoaHocTieuBieu : [],
+    DanhSachTimKiem : [],
+    KhoaHocChiTiet : {}
 }
 
 const HomePageReducer = (state = stateHomePage, action) => {
@@ -16,6 +20,22 @@ const HomePageReducer = (state = stateHomePage, action) => {
         case types.LAY_DANH_SACH_KHOA_HOC_THEO_DANH_MUC : {
             let dsKhoaHocTheoDanhMuc = action.DanhSachKhoaHocTheoDanhMuc;
             state.DanhSachKhoaHocTheoDanhMuc = dsKhoaHocTheoDanhMuc;
+            return {...state};
+        }
+
+        case types.LAY_DANH_SACH_KHOA_HOC_MOI_NHAT : {
+            let dsKhoaHocMoiNhat = action.DanhSachKhoaHocMoiNhat;
+            state.DanhSachKhoaHocMoiNhat = dsKhoaHocMoiNhat;
+            return {...state}
+        }
+
+        case types.LAY_DANH_SACH_KHOA_HOC_TIEU_BIEU : {
+            state.DanhSacKhoaHocTieuBieu = action.DanhSachKhoaHocTieuBieu;
+            return {...state};
+        }
+
+        case types.LAY_CHI_TIET_KHOA_HOC : {
+            state.KhoaHocChiTiet = action.KhoaHocChiTiet
             return {...state};
         }
         default: {

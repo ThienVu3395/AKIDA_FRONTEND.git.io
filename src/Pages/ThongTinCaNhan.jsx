@@ -13,7 +13,7 @@ class ThongTinCaNhan extends React.Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.state = {
-            activeTab: '2'
+            activeTab: '1'
         };
     }
 
@@ -39,21 +39,22 @@ class ThongTinCaNhan extends React.Component {
                                 className={classnames({ active: this.state.activeTab === '1' })}
                                 onClick={() => { this.toggle('1'); }}
                             >
-                                <i className="fas fa-book mr-2"></i>Khóa Học Đã Đăng Ký
+                                <i className="fas fa-user mr-2"></i>Hồ Sơ Cá Nhân
                             </NavLink>
                         </NavItem>
+
                         <NavItem>
                             <NavLink
                                 className={classnames({ active: this.state.activeTab === '2' })}
                                 onClick={() => { this.toggle('2'); }}
                             >
-                                <i className="fas fa-user mr-2"></i>Hồ Sơ Cá Nhân
+                                <i className="fas fa-book mr-2"></i>Khóa Học Đã Đăng Ký
                             </NavLink>
                         </NavItem>
                     </Nav>
 
                     <TabContent activeTab={this.state.activeTab} className="p-3">
-                        <TabPane tabId="1">
+                        <TabPane tabId="2">
                             <Row>
                                 <Col sm="12">
                                     <VaoHocContent />
@@ -61,7 +62,7 @@ class ThongTinCaNhan extends React.Component {
                             </Row>
                         </TabPane>
 
-                        <TabPane tabId="2">
+                        <TabPane tabId="1">
                             <Row>
                                 <Col sm="12">
                                     <Card body>

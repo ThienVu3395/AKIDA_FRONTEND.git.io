@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 export default class NavBar extends Component {
     render() {
         return (
-            <div>
-                <div className="header-top container">
-                    <div className="header-top-content container p-2">
+            <div className="container">
+                <div className="header-top">
+                    <div className="header-top-content p-2">
                         <div className="row">
                             <NavLink to="/trang-chu" className="logo mr-2">asd</NavLink>
                             <div className="input-form col-6 pt-1">

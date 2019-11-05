@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+//import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class ModalDanhSach extends Component {
@@ -16,7 +16,7 @@ class ModalDanhSach extends Component {
                         {/* Modal body */}
                         <div className="modal-body">
                             <div className="container">
-                                asdsadsadsadsa
+                            Danh Sách Quản Lý Người Dùng
                             </div>
                         </div>
                     </div>

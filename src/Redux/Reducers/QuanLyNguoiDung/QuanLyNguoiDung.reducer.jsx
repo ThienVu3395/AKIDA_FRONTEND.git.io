@@ -22,6 +22,13 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
         }
 
         case types.XOA_NGUOI_DUNG : {
+            let idUser = action.idUser;
+            let dsUser = [...state.DanhSachNguoiDung];
+            let index = dsUser.findIndex(x => x.ID_User === idUser);
+            if(index !== -1){
+                dsUser.splice(index,1);
+            }
+            state.DanhSachNguoiDung = dsUser;
             return {...state};
         }
         

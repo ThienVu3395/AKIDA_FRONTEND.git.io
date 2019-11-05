@@ -7,28 +7,22 @@ class ModalThem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            objThem : {
-                Name: "",
-                Password: "123",
-                Email: "",
-                Activated: 1,
-                Created_Time: "2012/12/12",
-                AKIDA_Number: 0,
-                Phone: ""
-            }
+            Name: "",
+            Password: "123",
+            Email: "",
+            Activated: "1",
+            Created_Time: "2012/12/12",
+            AKIDA_Number: 0,
+            Phone: "",
+            Role: "2"
         }
     }
 
-    // componentWillReceiveProps = (nextProps) => {
-    //     this.setState(nextProps.ThongTinCanSua)
-    // }
 
     layThongTinInput = (event) => {
         const input = event.target;
-        this.setState(
-            this.state.objThem = {
-            ...this.state.objThem,[input.name] : input.value
-            // [input.name]: input.value
+        this.setState({
+            [input.name]: input.value
             }
         )
     }
@@ -63,13 +57,13 @@ class ModalThem extends Component {
 
                                 <div className="form-group">
                                     <label>Ảnh Đại Diện</label>
-                                    <input type="file" class="form-control-file border"></input>
+                                    <input type="file" className="form-control-file border"></input>
                                 </div>
 
                                 <div className="row">
                                     <div className="form-group col-lg-6">
                                         <label>Trạng Thái</label>
-                                        <select className="form-control" onChange={this.layThongTinInput} name="Activated">
+                                        <select className="form-control" defaultValue={this.state.Activated} onChange={this.layThongTinInput} name="Activated">
                                             <option value="1">Hiện</option>
                                             <option value="0">Ẩn</option>
                                         </select>
@@ -77,9 +71,9 @@ class ModalThem extends Component {
 
                                     <div className="form-group col-lg-6">
                                         <label>Quyền</label>
-                                        <select className="form-control">
-                                            <option>Giảng Viên</option>
-                                            <option>Admin</option>
+                                        <select className="form-control" defaultValue={this.state.Role} onChange={this.layThongTinInput} name="Role">
+                                            <option value="2">Giảng Viên</option>
+                                            <option value="3">User</option>
                                         </select>
                                     </div>
                                 </div>
@@ -87,7 +81,7 @@ class ModalThem extends Component {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-info container" onClick={() => this.props.themNguoiDung(this.state.objThem)}><i className="fas fa-user-plus mr-2"></i>Thêm</button>
+                            <button type="button" className="btn btn-info container" onClick={() => this.props.themNguoiDung(this.state)}><i className="fas fa-user-plus mr-2"></i>Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -98,7 +92,7 @@ class ModalThem extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        
+
     }
 }
 
