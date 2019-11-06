@@ -20,6 +20,33 @@ export const LayDanhSachNguoiDung = () => {
     }
 }
 
+export const TimKiemNguoiDung = (Role, Activated) => {
+    return (dispatch) => {
+        let API = "";
+        if (Role === "0"  && Activated !== "-1") {
+            API += `API/QuanLyNguoiDung/TimKiemNguoiDungTheoTrangThai?Activated=${Activated}`
+        }
+        else if (Role !== "0" && Activated === "-1") {
+            API += `API/QuanLyNguoiDung/TimKiemNguoiDungTheoQuyen?Role=${Role}`
+        }
+        else if (Role === "0" && Activated === "-1") {
+            API += `API/QuanLyNguoiDung/LayDanhSachNguoiDung`;
+        }
+        else API += `API/QuanLyNguoiDung/TimKiemNguoiDungTuyChon?Role=${Role}&Activated=${Activated}`;
+        axios({
+            url: CauHinh.domain + API,
+            method: "GET",
+        }).then((result) => {
+            dispatch({
+                type: types.TIM_KIEM_NGUOI_DUNG_LOC,
+                KetQuaTimDuoc: result.data
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", "Có Lổi", "error");
+        })
+    }
+}
+
 
 export const ThemNguoiDung = (objUser) => {
     return (dispatch) => {
@@ -28,7 +55,7 @@ export const ThemNguoiDung = (objUser) => {
             method: "POST",
             data: objUser,
         }).then((result) => {
-            Swal.fire("Thông Báo", result.data , "success");
+            Swal.fire("Thông Báo", result.data, "success");
             dispatch({
                 type: types.THEM_NGUOI_DUNG,
                 User: objUser
@@ -45,7 +72,7 @@ export const XoaNguoiDung = (idUser) => {
             url: CauHinh.domain + `API/QuanLyNguoiDung/XoaNguoiDung?idUser=${idUser}`,
             method: "DELETE",
         }).then((result) => {
-            Swal.fire("Thông Báo", result.data , "success");
+            Swal.fire("Thông Báo", result.data, "success");
             dispatch({
                 type: types.XOA_NGUOI_DUNG,
                 idUser: idUser

@@ -13,6 +13,12 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
             return {...state}
         }
 
+        case types.TIM_KIEM_NGUOI_DUNG_LOC :{
+            let DanhSachUser = action.KetQuaTimDuoc;
+            state.DanhSachNguoiDung = DanhSachUser;
+            return {...state}
+        }
+
         case types.THEM_NGUOI_DUNG : {
             let User = action.User;
             let DanhSachUser = [...state.DanhSachNguoiDung,User];

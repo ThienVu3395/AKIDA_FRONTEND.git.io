@@ -15,8 +15,8 @@ class index extends Component {
             return <Redirect to={TrangChu}/>
         }
         else {
-            let tk = JSON.parse(localStorage.getItem('userLogin'));
-            if(tk.maLoaiNguoiDung !== "GV"){
+            let User = JSON.parse(localStorage.getItem('UserLogin'));
+            if(User.Role !== "1"){
                 Swal.fire("Xin Lỗi", "Bạn Không Có Quyền Để Truy Cập Vào Trang Này", "error");
                 return <Redirect to={TrangChu}/>
             }
@@ -36,10 +36,10 @@ class index extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
+//     }
+// }
 
-export default connect(mapStateToProps, null)(index)
+export default connect(null, null)(index)

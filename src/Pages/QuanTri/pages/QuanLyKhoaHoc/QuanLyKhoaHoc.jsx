@@ -72,18 +72,18 @@ class QuanLyKhoaHoc extends Component {
     // }
     render() {
         return (
-            <div style={{width:"70%",margin:"0 auto"}}>
-                <h2 className="text-center">Trang Quản Lý Khóa Học</h2>
-                <div className="input-group mb-3">
+            <div style={{ width: "70%", margin: "0 auto" }}>
+                <h2 className="text-center mb-4">Trang Quản Lý Khóa Học</h2>
+                {/* <div className="input-group mb-3">
                     <input type="text" className="form-control" name="tuKhoa" placeholder="Tìm khóa học theo tên..." onKeyUp={this.timKiem} />
                     <div className="input-group-append">
                         <button className="btn btn-success"><i className="fas fa-search"></i></button>
                     </div>
-                </div>
+                </div> */}
                 <div className="row">
                     <div className="form-group col-lg-3">
                         <select className="form-control" name="maDanhMuc">
-                            <option value="all">--Danh Mục--</option>
+                            <option value="all">-- Danh Mục --</option>
                             {
                                 this.props.dsDanhMuc.map((item, key) => {
                                     return (
@@ -96,15 +96,20 @@ class QuanLyKhoaHoc extends Component {
 
                     <div className="form-group col-lg-3">
                         <select className="form-control" name="maNhom">
-                            <option>--Trạng Thái--</option>
+                            <option>-- Trạng Thái --</option>
                             <option value="GP01">Hiện</option>
                             <option value="GP02">Ẩn</option>
                         </select>
                     </div>
 
 
-                    <div className="form-group col-lg-2">
+                    <div className="form-group col-lg-3">
                         <button className="form-control btn btn-success"><i className="fas fa-sort mr-2"></i>Lọc</button>
+                    </div>
+
+                    <div className="form-group col-lg-3">
+                        <button className="form-control btn btn-success" data-toggle="modal" data-target="#ModalThem"><i className="fas fa-calendar-plus"></i></button>
+                        <ModalThem tieuDe={"Thêm Khóa Học Mới"} />
                     </div>
                 </div>
 
@@ -113,16 +118,13 @@ class QuanLyKhoaHoc extends Component {
                         <tr>
                             <th>Hình Ảnh</th>
                             <th>Thông Tin Khóa Học</th>
-                            <th>
-                                <button className="form-control btn btn-success" data-toggle="modal" data-target="#ModalThem"><i className="fas fa-calendar-plus"></i></button>
-                            </th>
+                            <th>Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.renderKhoaHoc()}
+                        <ModalSua tieuDe={"Sửa Khóa Học"} />
                     </tbody>
-                    <ModalThem tieuDe={"Thêm Khóa Học Mới"} />
-                    <ModalSua tieuDe={"Sửa Khóa Học"} />
                 </Table>
 
                 <ul className="pagination pagination-lg justify-content-center">

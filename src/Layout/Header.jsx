@@ -30,11 +30,10 @@ class Header extends Component {
             );
         }
         else {
-            //let User = JSON.parse(localStorage.getItem('userLogin'));
+            let User = JSON.parse(localStorage.getItem('UserLogin'));
             return (
                 <div className="nav-item dropdown btn btn-primary">
-                    {/* <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>{User.hoTen}</b></span></a> */}
-                    <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>ABC</b></span></a>
+                    <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>{User.Name}</b></span></a>
                     <div className="dropdown-menu">
                         <NavLink className="dropdown-item" to='/thong-tin-cua-ban'><i className="fas fa-user mr-2"></i>Thông Tin Của Bạn</NavLink>
                         <NavLink className="dropdown-item" to='/kich-hoat-khoa-hoc'><i className="fas fa-key mr-2"></i>Kích Hoạt Khóa Học</NavLink>

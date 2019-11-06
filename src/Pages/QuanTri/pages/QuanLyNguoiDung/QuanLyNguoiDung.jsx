@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { LayDanhSachNguoiDung, XoaNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import { LayDanhSachNguoiDung, XoaNguoiDung, TimKiemNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
 
@@ -10,7 +10,9 @@ class QuanLyNguoiDung extends Component {
         super(props);
         this.state = {
             tuKhoa: "",
-            trangThaiSua: "0"
+            trangThaiSua: "0",
+            Role: "0",
+            Activated: "-1"
         }
     }
 
@@ -25,8 +27,18 @@ class QuanLyNguoiDung extends Component {
         })
     }
 
+
     renderUsers = () => {
-        let content = this.props.DanhSachNguoiDung.map((item, key) => {
+        let length = this.props.DanhSachNguoiDung.length;
+        let content;
+        if (length === 0) {
+            return content = (
+                <div className="col-12 text-center">
+                    <img src="http://tatnhapkhau.com/images/page_not_found.jpg" alt="imgs"/>
+                </div>
+            )
+        }
+        content = this.props.DanhSachNguoiDung.map((item, key) => {
             return (
                 <tr key={key}>
                     <td>
@@ -54,9 +66,8 @@ class QuanLyNguoiDung extends Component {
                         </div>
                     </td>
                     <td>
-
-                        <button type="button" className="form-control btn btn-primary mb-3" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
-                        <button className="form-control btn btn-danger mb-3" onClick={() => this.props.xoaUser(item.ID_User)}><i className="fas fa-trash-alt"></i></button>
+                        <button className="form-control btn btn-primary mb-3" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
+                        <button className="form-control btn btn-danger mb-3" onClick={() => this.props.XoaUser(item.ID_User)}><i className="fas fa-trash-alt"></i></button>
                         {this.state.trangThaiSua === "0" ?
                             <button className="form-control btn btn-primary" onClick={() => this.setState({ trangThaiSua: "1" })}><i className="fas fa-user-cog"></i></button> :
                             <div className="container">
@@ -88,34 +99,39 @@ class QuanLyNguoiDung extends Component {
     }
     render() {
         return (
-            <div style={{width:"70%",margin:"0 auto"}}>
-                <h2 className="text-center">Trang Quản Lý Người Dùng</h2>
-                <div className="input-group mb-3">
+            <div style={{ width: "70%", margin: "0 auto" }}>
+                <h2 className="text-center mb-4">Trang Quản Lý Người Dùng</h2>
+                {/* <div className="input-group mb-3">
                     <input type="text" className="form-control" name="tuKhoa" placeholder="Tìm người dùng theo tài khoản hoặc họ tên..." onKeyUp={this.timKiem} />
                     <div className="input-group-append">
                         <button className="btn btn-success"><i className="fas fa-search"></i></button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="row">
                     <div className="form-group col-lg-3">
-                        <select className="form-control" name="maNhom" onChange={this.chonNhom}>
-                            <option>-- Quyền --</option>
-                            <option value="GP01">TeamMember</option>
-                            <option value="GP02">User</option>
+                        <select className="form-control" name="Role" defaultValue={this.state.Role} onChange={this.chonNhom}>
+                            <option value="0">-- Quyền --</option>
+                            <option value="2">TeamMember</option>
+                            <option value="3">User</option>
                         </select>
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <select className="form-control" name="maNhom" onChange={this.chonNhom}>
-                            <option>-- Trạng Thái --</option>
-                            <option value="GP01">Hiển Thị</option>
-                            <option value="GP02">Ẩn</option>
+                        <select className="form-control" name="Activated" defaultValue={this.state.Activated} onChange={this.chonNhom}>
+                            <option value="-1">-- Trạng Thái --</option>
+                            <option value="1">Hiển Thị</option>
+                            <option value="0">Ẩn</option>
                         </select>
                     </div>
 
-                    <div className="form-group col-lg-2">
-                        <button className="form-control btn btn-success"><i className="fas fa-sort mr-2"></i>Lọc</button>
+                    <div className="form-group col-lg-3">
+                        <button className="form-control btn btn-success" onClick={() => this.props.TimKiemNguoiDung(this.state.Role, this.state.Activated)}><i className="fas fa-sort mr-2"></i>Lọc</button>
+                    </div>
+
+                    <div className="form-group col-lg-3">
+                        <button className="btn btn-success container mb-3" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i></button>
+                        <ModalThem tieuDe={"Thêm Người Dùng Mới"} />
                     </div>
                 </div>
 
@@ -124,13 +140,12 @@ class QuanLyNguoiDung extends Component {
                         <tr>
                             <th>Hình Ảnh</th>
                             <th>Thông Tin Người Dùng</th>
-                            <th><button className="btn btn-success container mb-3" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i></button></th>
+                            <th>Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.renderUsers()}
                     </tbody>
-                    <ModalThem tieuDe={"Thêm Người Dùng Mới"} />
                     <ModalDanhSach />
                 </Table>
 
@@ -156,7 +171,11 @@ const DispatchStateToProps = (dispatch) => {
             dispatch(LayDanhSachNguoiDung())
         },
 
-        xoaUser: (idUser) => {
+        TimKiemNguoiDung: (Role, Activated) => {
+            dispatch(TimKiemNguoiDung(Role, Activated))
+        },
+
+        XoaUser: (idUser) => {
             let cf = window.confirm('Bạn chắc chắn xoá người dùng này chứ ?')
             if (cf) {
                 dispatch(XoaNguoiDung(idUser))

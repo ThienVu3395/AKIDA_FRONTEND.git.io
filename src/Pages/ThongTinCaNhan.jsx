@@ -26,7 +26,7 @@ class ThongTinCaNhan extends React.Component {
     }
 
     render() {
-        if (this.props.trangThaiDangNhap === 0) {
+        if (this.props.TrangThaiDangNhap === 0) {
             return <Redirect to='/trang-chu' />
         }
         return (
@@ -82,7 +82,7 @@ class ThongTinCaNhan extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        trangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 
