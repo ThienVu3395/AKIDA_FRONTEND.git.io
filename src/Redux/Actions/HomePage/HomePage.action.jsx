@@ -6,21 +6,20 @@ import * as CauHinh from '../../../common/CauHinh';
 
 export const TimKiemKhoaHoc = (tuKhoa) => {
     return (dispatch) => {
-        alert(tuKhoa)
         axios({
             url: CauHinh.domain + `API/TimKiemKhoaHoc?tenKhoaHoc=${tuKhoa}`,
             method: "GET",
         }).then((result) => {
             dispatch({
-                type: types.LAY_DANH_SACH_DANH_MUC,
-                DanhSachDanhMuc : result.data
+                type: types.TIM_KIEM_KHOA_HOC,
+                DanhSachTimKiem: result.data,
+                TuKhoaTimKiem: tuKhoa
             })
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
         })
     }
 }
-
 
 export const LayDanhSachDanhMuc = () => {
     return (dispatch) => {
@@ -30,7 +29,7 @@ export const LayDanhSachDanhMuc = () => {
         }).then((result) => {
             dispatch({
                 type: types.LAY_DANH_SACH_DANH_MUC,
-                DanhSachDanhMuc : result.data
+                DanhSachDanhMuc: result.data
             })
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
@@ -46,8 +45,8 @@ export const LayDanhSachKhoaHocTheoDanhMuc = (idCategory) => {
         }).then((result) => {
             dispatch({
                 type: types.LAY_DANH_SACH_KHOA_HOC_THEO_DANH_MUC,
-                DanhSachKhoaHocTheoDanhMuc : result.data
-            })
+                DanhSachKhoaHocTheoDanhMuc: result.data
+            });
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
         })
@@ -62,7 +61,7 @@ export const LayDanhSachKhoaHocMoiNhat = () => {
         }).then((result) => {
             dispatch({
                 type: types.LAY_DANH_SACH_KHOA_HOC_MOI_NHAT,
-                DanhSachKhoaHocMoiNhat : result.data
+                DanhSachKhoaHocMoiNhat: result.data
             })
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
@@ -78,7 +77,23 @@ export const LayDanhSachKhoaHocTieuBieu = () => {
         }).then((result) => {
             dispatch({
                 type: types.LAY_DANH_SACH_KHOA_HOC_TIEU_BIEU,
-                DanhSachKhoaHocTieuBieu : result.data
+                DanhSachKhoaHocTieuBieu: result.data
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", "Có Lổi", "error");
+        })
+    }
+}
+
+export const LayDanhSachGiaoVien = () => {
+    return (dispatch) => {
+        axios({
+            url: CauHinh.domain + `API/LayDanhSachGiaoVien`,
+            method: "GET",
+        }).then((result) => {
+            dispatch({
+                type : types.LAY_DANH_SACH_GIAO_VIEN,
+                dsGiaoVien : result.data
             })
         }).catch((error) => {
             Swal.fire("Thông Báo", "Có Lổi", "error");
@@ -94,10 +109,43 @@ export const LayChiTietKhoaHoc = (idKhoaHoc) => {
         }).then((result) => {
             dispatch({
                 type: types.LAY_CHI_TIET_KHOA_HOC,
-                KhoaHocChiTiet : result.data
+                KhoaHocChiTiet: result.data
             })
         }).catch((error) => {
             Swal.fire("Thông Báo", error.response.data, "error");
+        })
+    }
+}
+
+export const DangNhap = (objDangNhap) => {
+    return (dispatch) => {
+        axios({
+            url: CauHinh.domain + `API/DangNhap`,
+            method: "POST",
+            data : objDangNhap
+        }).then((result) => {
+            Swal.fire("Thông Báo", "Đăng Nhập Thành Công" , "success");
+            localStorage.setItem("UserLogin",JSON.stringify(result.data));
+            dispatch({
+                type: types.DANG_NHAP,
+                UserDangNhap: result.data
+            })
+        }).catch(() => {
+            Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
+        })
+    }
+}
+
+export const DangKy = (objDangKy) => {
+    return (dispatch) => {
+        alert("vô đăng ký")
+    }
+}
+
+export const DangXuat = () => {
+    return (dispatch) => {
+        dispatch({
+            type: types.DANG_XUAT
         })
     }
 }

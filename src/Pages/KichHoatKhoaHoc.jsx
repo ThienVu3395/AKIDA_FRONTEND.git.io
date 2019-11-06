@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 class KichHoatKhoaHoc extends Component {
     render() {
-        if (this.props.trangThaiDangNhap === 0) {
+        if (this.props.TrangThaiDangNhap === 0) {
             return <Redirect to='/trang-chu' />
         }
         return (
@@ -35,7 +35,7 @@ class KichHoatKhoaHoc extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 

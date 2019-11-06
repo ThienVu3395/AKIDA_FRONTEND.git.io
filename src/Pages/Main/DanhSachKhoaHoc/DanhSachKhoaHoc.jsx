@@ -4,19 +4,24 @@ import KhoaHoc from '../DanhSachKhoaHoc/KhoaHoc';
 import KhoaHocMoiNhat from '../DanhSachKhoaHoc/KhoaHocMoiNhat';
 import KhoaHocTieuBieu from '../DanhSachKhoaHoc/KhoaHocTieuBieu';
 import { connect } from 'react-redux';
-//import { NavLink } from 'react-router-dom';
+
+// import BlockUi from 'react-block-ui';
+// import 'react-block-ui/style.css';
+
 import Slider from "react-slick";
 import { Tab, Tabs } from 'react-bootstrap';
-import { LayDanhSachDanhMuc, LayDanhSachKhoaHocTheoDanhMuc, LayDanhSachKhoaHocMoiNhat , LayDanhSachKhoaHocTieuBieu } from '../../../Redux/Actions/HomePage/HomePage.action'
+import { LayDanhSachDanhMuc, LayDanhSachKhoaHocTheoDanhMuc, LayDanhSachKhoaHocMoiNhat, LayDanhSachKhoaHocTieuBieu } from '../../../Redux/Actions/HomePage/HomePage.action'
 
 
 class DanhSachKhoaHoc extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            maDanhMuc: "3"
+            maDanhMuc: "3",
+            // blocking: false,
         }
     }
+
     componentDidMount() {
         this.props.LayDanhSachDanhMuc();
         this.props.LayDanhSachKhoaHocTheoDanhMuc(this.state.maDanhMuc);
@@ -37,12 +42,14 @@ class DanhSachKhoaHoc extends Component {
         let dsDanhMuc = this.props.DanhSachDanhMuc.map((item, key) => {
             return (
                 <Tab key={key} eventKey={item.ID_Category} title={item.Name} className="mt-3">
-                    <div className="container">
-                        <Slider {...set}>
-                            {this.renderKhoaHocTheoDanhMuc()}
-                            <button className="btn btn-success">Xem Thêm</button>
-                        </Slider>
-                    </div>
+                    {/* <BlockUi tag="div" blocking={this.state.blocking} message="Loading, Please Wait..."> */}
+                        <div className="container">
+                            <Slider {...set}>
+                                {this.renderKhoaHocTheoDanhMuc()}
+                                {/* <button className="btn btn-success">Xem Thêm</button> */}
+                            </Slider>
+                        </div>
+                    {/* </BlockUi> */}
                 </Tab>
             )
         })
@@ -68,6 +75,7 @@ class DanhSachKhoaHoc extends Component {
     }
 
     chonMaDanhMuc = (maDanhMuc) => {
+        // this.setState({ blocking: true });
         this.props.LayDanhSachKhoaHocTheoDanhMuc(maDanhMuc);
     }
 
@@ -122,7 +130,7 @@ const mapStateToProps = (state) => {
     return {
         DanhSachDanhMuc: state.HomePageReducer.DanhSachDanhMuc,
         DanhSachKhoaHocTheoDanhMuc: state.HomePageReducer.DanhSachKhoaHocTheoDanhMuc,
-        DanhSachKhoaHocMoiNhat : state.HomePageReducer.DanhSachKhoaHocMoiNhat,
+        DanhSachKhoaHocMoiNhat: state.HomePageReducer.DanhSachKhoaHocMoiNhat,
         DanhSachTieuBieu: state.HomePageReducer.DanhSacKhoaHocTieuBieu
     }
 }
@@ -137,7 +145,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(LayDanhSachKhoaHocTheoDanhMuc(idDanhMuc))
         },
 
-        LayDanhSachKhoaHocMoiNhat : () => {
+        LayDanhSachKhoaHocMoiNhat: () => {
             dispatch(LayDanhSachKhoaHocMoiNhat())
         },
 

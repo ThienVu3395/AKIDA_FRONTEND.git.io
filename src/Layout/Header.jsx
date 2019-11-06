@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Header.css';
-import {TimKiemKhoaHoc} from '../Redux/Actions/HomePage/HomePage.action';
+import { TimKiemKhoaHoc, DangXuat } from '../Redux/Actions/HomePage/HomePage.action';
+import ModalDangNhapDangKy from '../components/DangNhapDangKy/ModelDangNhapDangKy';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -20,20 +21,26 @@ class Header extends Component {
     }
 
     hienThiDangNhap = () => {
-        if (this.props.trangThaiDangNhap === 0) {
-            return <div className="regis pl-2 pr-2" data-toggle="modal" data-target="#dangNhap"><i className="fas fa-users mr-2"></i>Đăng Ký / Đăng Nhập</div>;
+        if (this.props.TrangThaiDangNhap === 0) {
+            return (
+                <>
+                    <div className="regis pl-2 pr-2" data-toggle="modal" data-target="#dangNhap"><i className="fas fa-users mr-2"></i>Đăng Ký / Đăng Nhập</div>
+                    <ModalDangNhapDangKy />
+                </>
+            );
         }
         else {
-            let User = JSON.parse(localStorage.getItem('userLogin'));
+            //let User = JSON.parse(localStorage.getItem('userLogin'));
             return (
                 <div className="nav-item dropdown btn btn-primary">
-                    <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>{User.hoTen}</b></span></a>
+                    {/* <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>{User.hoTen}</b></span></a> */}
+                    <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="asdasd"><i className="fas fa-user-cog mr-2"></i>Chào <span className="text-danger text-uppercase"><b>ABC</b></span></a>
                     <div className="dropdown-menu">
                         <NavLink className="dropdown-item" to='/thong-tin-cua-ban'><i className="fas fa-user mr-2"></i>Thông Tin Của Bạn</NavLink>
                         <NavLink className="dropdown-item" to='/kich-hoat-khoa-hoc'><i className="fas fa-key mr-2"></i>Kích Hoạt Khóa Học</NavLink>
                         <NavLink className="dropdown-item" to='/nap-the'><i className="fa fa-credit-card mr-2" aria-hidden="true"></i>Nạp Thẻ</NavLink>
                         <hr />
-                        <button className="dropdown-item"><i className="fas fa-sign-out-alt mr-2"></i>Đăng Xuất</button>
+                        <button className="dropdown-item" onClick={() => this.props.DangXuat()}><i className="fas fa-sign-out-alt mr-2"></i>Đăng Xuất</button>
                     </div>
                 </div>
             )
@@ -53,7 +60,7 @@ class Header extends Component {
                                         <form>
                                             <div className="input-group mb-3 input-group-sm">
                                                 <input type="text" className="form-control form-search" name="tuKhoa" placeholder="Nhập Tên Khóa Học..." onChange={this.layThongTinInput} />
-                                                <div className="input-group-prepend input-search" onClick={()=>this.props.TimKiemKhoaHoc(this.state.tuKhoa)}>
+                                                <div className="input-group-prepend input-search" onClick={() => this.props.TimKiemKhoaHoc(this.state.tuKhoa)}>
                                                     <NavLink to='/ket-qua' className="input-group-text"><i className="fas fa-search"></i></NavLink>
                                                 </div>
                                             </div>
@@ -114,14 +121,22 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap,
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        TimKiemKhoaHoc : (tuKhoa) => {
+        TimKiemKhoaHoc: (tuKhoa) => {
             dispatch(TimKiemKhoaHoc(tuKhoa))
+        },
+
+        DangXuat: () => {
+            let cf = window.confirm("Bạn Chắc Chắn Muốn Đăng Xuất Chứ ?");
+            if(cf){
+                dispatch(DangXuat())
+            }
+            return;
         }
     }
 }

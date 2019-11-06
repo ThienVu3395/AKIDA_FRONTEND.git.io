@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slider from "react-slick";
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import {LayChiTietKhoaHoc} from '../Redux/Actions/HomePage/HomePage.action';
@@ -11,7 +12,6 @@ class ChiTietKhoaHoc extends Component {
         this.props.LayChiTiet(idKhoaHoc);
     }
     render() {
-        //console.log(this.props.KhoaHocChiTiet)
         const settings = {
             infinite: true,
             centerPadding: "60px",
@@ -50,7 +50,7 @@ class ChiTietKhoaHoc extends Component {
                 <div className="details">
                     <section className="detail-header text-white p-3">
                         <div className="container">
-                            <p>Trang Chủ >> Ngoại Ngữ >> Tự Học Tiếng Hàn Thật Dễ</p>
+                            <p><NavLink to={`/trang-chu`}>Trang Chủ</NavLink> >> <span className="alert alert-danger">{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Name}</span></p>
                             <h2>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Name}</h2>
                             <p>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Short_Description}</p>
 
@@ -592,7 +592,7 @@ class ChiTietKhoaHoc extends Component {
 const mapStateToProps = (state) => {
     return {
         KhoaHocChiTiet : state.HomePageReducer.KhoaHocChiTiet,
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 

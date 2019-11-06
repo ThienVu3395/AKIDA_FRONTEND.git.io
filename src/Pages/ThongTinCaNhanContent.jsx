@@ -114,7 +114,7 @@ class ThongTinCaNhanContent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        thongTinCaNhan: state.ElearningReducer.ThongTinCaNhan
+        thongTinCaNhan: state.HomePageReducer.ThongTinCaNhan
     }
 }
 

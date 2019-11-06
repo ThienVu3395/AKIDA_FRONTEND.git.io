@@ -6,12 +6,12 @@ import { Redirect } from 'react-router-dom';
 
 class NapThe extends Component {
     render() {
-        if (this.props.trangThaiDangNhap === 0) {
+        if (this.props.TrangThaiDangNhap === 0) {
             return <Redirect to='/trang-chu' />
         }
         return (
             <>
-                <Header />
+                <Header/>
                 <div className="container p-3">
                     <div className="text-center">
                         <h3 className="p-3">NẠP THẺ THÀNH VIÊN</h3>
@@ -36,7 +36,7 @@ class NapThe extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 

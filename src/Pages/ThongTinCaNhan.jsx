@@ -82,7 +82,7 @@ class ThongTinCaNhan extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        trangThaiDangNhap: state.ElearningReducer.trangThaiDangNhap
+        trangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 

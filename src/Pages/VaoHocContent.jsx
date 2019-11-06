@@ -61,7 +61,7 @@ class VaoHocContent extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        thongTinCaNhan: state.ElearningReducer.DanhSachKhoaHocDaDangKy
+        thongTinCaNhan: state.HomePageReducer.DanhSachKhoaHocDaDangKy
     }
 }
 
