@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {SuaKhoaHoc} from '../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action'
 
 class ModalThem extends Component {
     constructor(props) {
@@ -17,12 +18,12 @@ class ModalThem extends Component {
         })
     }
 
-    layHinhAnh = (event) => {
-        const input = event.target;
-        this.setState({
-            [input.name]: input.files[0].name,
-        })
-    }
+    // layHinhAnh = (event) => {
+    //     const input = event.target;
+    //     this.setState({
+    //         [input.name]: input.files[0].name,
+    //     })
+    // }
 
     render() {
         return (
@@ -39,13 +40,13 @@ class ModalThem extends Component {
                             <div className="container">
                                 <div className="form-group">
                                     <label htmlFor="tenKH">Tên Khóa Học :</label>
-                                    <input type="text" className="form-control" defaultValue={this.props.ChiTietKhoaHoc.Name} name="tenKhoaHoc" onChange={this.layThongTinInput} />
+                                    <input type="text" className="form-control" defaultValue={this.props.ChiTietKhoaHoc.Name} name="Name" onChange={this.layThongTinInput} />
                                 </div>
 
                                 <div className="row">
                                     <div className="form-group col-6">
                                         <label>Danh Mục :</label>
-                                        <select className="form-control" defaultValue={this.state.Category_ID} name="maDanhMucKhoaHoc" onChange={this.layThongTinInput}>
+                                        <select className="form-control" defaultValue={this.state.Category_ID} name="Category_ID" onChange={this.layThongTinInput}>
                                             {
                                                 this.props.dsDanhMuc.map((item, key) => {
                                                     return (
@@ -58,7 +59,7 @@ class ModalThem extends Component {
 
                                     <div className="form-group col-6">
                                         <label htmlFor="sel1">Trạng Thái :</label>
-                                        <select className="form-control" name="maNhom" onChange={this.layThongTinInput} value={this.state.maNhom}>
+                                        <select className="form-control" name="Enabled" onChange={this.layThongTinInput} defaultValue={this.props.ChiTietKhoaHoc.Enabled}>
                                             <option value="1">Hiện</option>
                                             <option value="0">Ẩn</option>
                                         </select>
@@ -67,7 +68,7 @@ class ModalThem extends Component {
 
                                 <div className="form-group">
                                     <label htmlFor="pwd">Mô Tả :</label>
-                                    <textarea className="form-control" name="moTa" defaultValue={this.props.ChiTietKhoaHoc.Short_Description} onChange={this.layThongTinInput} value={this.state.moTa}></textarea>
+                                    <textarea className="form-control" name="Short_Description" defaultValue={this.props.ChiTietKhoaHoc.Short_Description} onChange={this.layThongTinInput} onChange={this.layThongTinInput}></textarea>
                                 </div>
 
                                 {/* <div className="form-group">
@@ -75,7 +76,7 @@ class ModalThem extends Component {
                                     <input type="file" className="form-control-file border" name="hinhAnh" onChange={this.layHinhAnh}></input>
                                 </div> */}
 
-                                <button className="btn btn-info container">Xác Nhận Sửa</button>
+                                <button className="btn btn-info container" onClick={()=>this.props.SuaKhoaHoc(this.state)}>Xác Nhận Sửa</button>
                             </div>
                         </div>
                     </div>
@@ -94,7 +95,9 @@ const mapStateToProps = (state) => {
 
 const DispatchStateToProps = (dispatch) => {
     return {
-
+        SuaKhoaHoc : (objSua) => {
+            dispatch(SuaKhoaHoc(objSua))
+        }
     }
 }
 

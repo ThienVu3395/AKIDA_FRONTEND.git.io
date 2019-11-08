@@ -21,20 +21,55 @@ export const LayDanhSachKhoaHoc = () => {
 
 export const ThemKhoaHoc = (objThem) => {
     return (dispatch) => {
+        console.log(objThem);
         axios({
             url: CauHinh.domain + `API/QuanLyKhoaHoc/ThemKhoaHoc`,
             method: "POST",
             data : objThem
         }).then((result) => {
-            Swal.fire("Thông Báo", result.data , "error");
+            Swal.fire("Thông Báo", result.data , "success");
             dispatch({
                 type: types.THEM_KHOA_HOC,
                 ObjThem : objThem
             })
         }).catch((error) => {
-            alert("sai")
             Swal.fire("Thông Báo", error.message.data , "error");
         })
+    }
+}
+
+export const XoaKhoaHoc = (idKhoaHoc) => {
+    return (dispatch) => {
+        axios({
+            url: CauHinh.domain + `API/QuanLyKhoaHoc/XoaKhoaHoc?idKhoaHoc=${idKhoaHoc}`,
+            method: "DELETE",
+        }).then((result) => {
+            Swal.fire("Thông Báo", result.data , "success");
+            dispatch({
+                type: types.XOA_KHOA_HOC,
+                idKhoaHoc : idKhoaHoc
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", error, "error");
+        })
+    }
+}
+
+export const SuaKhoaHoc = (objSua) => {
+    return (dispatch) => {
+        console.log(objSua)
+        // axios({
+        //     url: CauHinh.domain + `API/QuanLyKhoaHoc/XoaKhoaHoc?idKhoaHoc=${idKhoaHoc}`,
+        //     method: "DELETE",
+        // }).then((result) => {
+        //     Swal.fire("Thông Báo", result.data , "success");
+        //     dispatch({
+        //         type: types.XOA_KHOA_HOC,
+        //         idKhoaHoc : idKhoaHoc
+        //     })
+        // }).catch((error) => {
+        //     Swal.fire("Thông Báo", error, "error");
+        // })
     }
 }
 

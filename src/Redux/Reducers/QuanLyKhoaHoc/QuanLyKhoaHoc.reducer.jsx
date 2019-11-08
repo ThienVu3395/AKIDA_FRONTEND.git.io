@@ -20,6 +20,16 @@ const QuanLyKhoaHocReducer = (state = stateQuanLyKhoaHoc, action) => {
             return {...state}
         }
 
+        case types.XOA_KHOA_HOC : {
+            let ds = [...state.DanhSachKhoaHoc];
+            let index = ds.findIndex(x => x.ID === action.idKhoaHoc);
+            if(index !== -1){
+                ds.splice(index,1);
+            }
+            state.DanhSachKhoaHoc = ds;
+            return {...state}
+        }
+
         case types.XEM_CHI_TIET_KHOA_HOC : {
             state.ChiTietKhoaHoc = action.cctk;
             return {...state}

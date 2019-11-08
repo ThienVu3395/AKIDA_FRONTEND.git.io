@@ -4,7 +4,7 @@ import ModalThem from '../../../../components/QuanLyKhoaHoc/ModalThem';
 import ModalSua from '../../../../components/QuanLyKhoaHoc/ModalSua';
 import ModalDanhSach from '../../../../components/QuanLyKhoaHoc/ModalDanhSach';
 import { Table } from 'react-bootstrap';
-import { LayDanhSachKhoaHoc , XemThongTinKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
+import { LayDanhSachKhoaHoc , XemThongTinKhoaHoc , XoaKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
 import { LayDanhSachDanhMuc } from '../../../../Redux/Actions/HomePage/HomePage.action';
 
 class QuanLyKhoaHoc extends Component {
@@ -41,7 +41,7 @@ class QuanLyKhoaHoc extends Component {
                         </div>
 
                         <div className="alert alert-primary">
-                            <strong>Danh Mục : </strong>{item.Category_ID}
+                            <strong>Danh Mục : </strong>{item.Category_Name}
                         </div>
 
                         <div className="alert alert-primary">
@@ -54,7 +54,7 @@ class QuanLyKhoaHoc extends Component {
                         <ModalDanhSach />
                         <button className="form-control btn btn-info mb-3" data-toggle="modal" data-target="#ModalSua" onClick={()=>this.props.XemThongTinKhoaHoc(item.ID)}><i className="fas fa-calendar-plus"></i></button>
                         <ModalSua tieuDe={"Sửa Khóa Học"} />
-                        <button className="form-control btn btn-danger"><i className="fas fa-trash-alt"></i></button>
+                        <button className="form-control btn btn-danger" onClick={()=>this.props.XoaKhoaHoc(item.ID)}><i className="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
             )
@@ -157,6 +157,14 @@ const dispatchStateToProps = (dispatch) => {
 
         XemThongTinKhoaHoc : (idKH) => {
             dispatch(XemThongTinKhoaHoc(idKH))
+        },
+
+        XoaKhoaHoc : (idKH) => {
+            let cf = window.confirm("Bạn chắc xóa khóa học này không ?");
+            if(cf){
+                dispatch(XoaKhoaHoc(idKH))
+            }
+            return;
         }
     }
 }

@@ -6,7 +6,7 @@ import { DangNhap, DangKy } from '../../Redux/Actions/HomePage/HomePage.action';
 class ModelDangNhapDangKy extends Component {
     constructor(props) {
         super(props);
-        var date = new Date()
+        //var date = new Date()
         this.state = {
             Activated: "1",
             Name : "",

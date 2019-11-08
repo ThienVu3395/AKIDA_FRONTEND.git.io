@@ -8,12 +8,12 @@ class ModalThem extends Component {
         let tk = JSON.parse(localStorage.getItem('UserLogin'));
         this.state = {
             Name : "",
-            ID_Category : 3,
+            Category_ID : 3,
             Enabled : 1,
             Author : tk.Name,
             Created_Time : "2019-11-01",
             Short_Description : "",
-            Number_Of_Participants : 0,
+            Number_Of_Participants : 666,
             Video_Info_ID : 1,
             Cost_Aki : 0
         }
