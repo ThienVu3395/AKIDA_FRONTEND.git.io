@@ -7,12 +7,6 @@ let stateQuanLyNguoiDung = {
 
 const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
     switch (action.type) {
-        case types.LAY_DANH_SACH_NGUOI_DUNG :{
-            let DanhSachUser = action.DanhSachUser;
-            state.DanhSachNguoiDung = DanhSachUser;
-            return {...state}
-        }
-
         case types.TIM_KIEM_NGUOI_DUNG_LOC :{
             let DanhSachUser = action.KetQuaTimDuoc;
             state.DanhSachNguoiDung = DanhSachUser;

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class KhoaHoc extends Component {
     render() {
         return (
-            <div className="card mr-2" style={{minHeight:"350px"}}>
+            <div className="card mr-1" style={{minHeight:"350px"}}>
                 <div className="card-img">
                     <NavLink to={`/chi-tiet-khoa-hoc/${this.props.KhoaHoc.ID}`}>
                         <img className="img-fluid" src="https://static.unica.vn/upload/images/2019/04/facebook-marketing-a-z_m_1555557477.jpg" alt="Card" />

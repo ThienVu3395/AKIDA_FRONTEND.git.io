@@ -18,7 +18,7 @@ class SubFooter extends Component {
                         </div>
 
                         <div className="teacher-info text-center">
-                            <h4>Nguyễn Hiếu</h4>
+                            <h4>{item.Name}</h4>
                             <p style={{ minHeight: "75px" }}>Giảng viên Guitar - Youtuber nổi tiếng cộng đồng guitar Việt Nam</p>
                         </div>
                     </div>

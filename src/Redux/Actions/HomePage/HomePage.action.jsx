@@ -119,33 +119,40 @@ export const LayChiTietKhoaHoc = (idKhoaHoc) => {
 
 export const DangNhap = (objDangNhap) => {
     return (dispatch) => {
-        objDangNhap.Role = "1";
-        objDangNhap.Name = "Thiên Vũ";
-        localStorage.setItem("UserLogin",JSON.stringify(objDangNhap));
-        dispatch({
-            type: types.DANG_NHAP,
-            UserDangNhap: objDangNhap
+        axios({
+            url: CauHinh.domain + `API/DangNhap`,
+            method: "POST",
+            data : objDangNhap,
+        }).then((result) => {
+            result.data.Role = "1";
+            Swal.fire("Thông Báo", "Đăng Nhập Thành Công", "success");
+            localStorage.setItem("UserLogin",JSON.stringify(result.data));
+            dispatch({
+                type: types.DANG_NHAP,
+                // UserDangNhap: result.data
+            })
+        }).catch(() => {
+            Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
         })
-        // axios({
-        //     url: CauHinh.domain + `API/DangNhap`,
-        //     method: "POST",
-        //     data : objDangNhap
-        // }).then((result) => {
-        //     Swal.fire("Thông Báo", "Đăng Nhập Thành Công" , "success");
-        //     localStorage.setItem("UserLogin",JSON.stringify(result.data));
-        //     dispatch({
-        //         type: types.DANG_NHAP,
-        //         UserDangNhap: result.data
-        //     })
-        // }).catch(() => {
-        //     Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
-        // })
     }
 }
 
 export const DangKy = (objDangKy) => {
     return (dispatch) => {
-        alert("vô đăng ký")
+        console.log(objDangKy)
+        axios({
+            url: CauHinh.domain + `API/DangKy`,
+            method: "POST",
+            data : objDangKy,
+        }).then((result) => {
+            Swal.fire("Thông Báo", "Đăng Ký Thành Công" , "success");
+            dispatch({
+                type: types.DANG_KY,
+                UserDangKy : result.data
+            })
+        }).catch(() => {
+            Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
+        })
     }
 }
 

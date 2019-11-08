@@ -17,10 +17,10 @@ function SampleNextArrow() {
 export default class main extends Component {
     render() {
         const settings = {
-            infinite: true,
+            infinite: false,
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
+            autoplay: false,
             speed: 2000,
             autoplaySpeed: 2000,
             nextArrow: <SampleNextArrow />,

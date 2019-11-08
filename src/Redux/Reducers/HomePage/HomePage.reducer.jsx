@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 let stateHomePage = {
     DanhSachTimKiem: [],
     TrangThaiDangNhap: localStorage.length,
-    ThongTinCaNhan: {},
+    //ThongTinCaNhan: {},
     DanhSachDanhMuc: [],
     DanhSachKhoaHocTheoDanhMuc: [],
     DanhSachKhoaHocMoiNhat: [],
@@ -58,7 +58,7 @@ const HomePageReducer = (state = stateHomePage, action) => {
 
         case types.DANG_NHAP: {
             state.TrangThaiDangNhap = localStorage.length;
-            state.ThongTinCaNhan = action.UserDangNhap;
+            // state.ThongTinCaNhan = action.UserDangNhap;
             return { ...state }
         }
 

@@ -6,7 +6,15 @@ import { DangNhap, DangKy } from '../../Redux/Actions/HomePage/HomePage.action';
 class ModelDangNhapDangKy extends Component {
     constructor(props) {
         super(props);
+        var date = new Date()
         this.state = {
+            Activated: "1",
+            Name : "",
+            Email : "",
+            Phone : "",
+            Password:"",
+            AKIDA_Number : 0,
+            Created_Time : "2019-11-07",
         }
     }
 
@@ -58,25 +66,33 @@ class ModelDangNhapDangKy extends Component {
 
                                     {/* Form Đăng Ký */}
                                     <div id="menu1" className="container tab-pane fade"><br />
-                                        <div className="row">
-                                            <div className="form-group col-12">
-                                                <label>Mã Nhóm :</label>
-                                                <select className="form-control" name="maNhom" defaultValue={this.state.maNhom} onChange={this.layThongTinInput}>
-                                                    <option value="GP01">GP01</option>
-                                                    <option value="GP02">GP02</option>
-                                                </select>
-                                            </div>
+                                        <div className="form-group">
+                                            <label>Trạng Thái :</label>
+                                            <select className="form-control" name="Activated" defaultValue={this.state.Activated} onChange={this.layThongTinInput}>
+                                                <option value="1">Hiện</option>
+                                                <option value="0">Ẩn</option>
+                                            </select>
                                         </div>
 
-                                        <input type="text" className="form-control mb-3" name="taiKhoan" placeholder="Tài Khoản ( Bắt Buộc )" required onChange={this.layThongTinInput} />
+                                        <div className="form-group">
+                                            <label>Name:</label>
+                                            <input type="text" name="Name" className="form-control" onChange={this.layThongTinInput} />
+                                        </div>
 
-                                        <input type="password" className="form-control mb-3" name="matKhau" placeholder="Mật Khẩu Từ 6-32 Ký Tự ( Bắt Buộc ) " required onChange={this.layThongTinInput} />
+                                        <div className="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" name="Email" className="form-control" onChange={this.layThongTinInput} />
+                                        </div>
+                                        
+                                        <div className="form-group">
+                                            <label>Password:</label>
+                                            <input type="password" name="Password" className="form-control" onChange={this.layThongTinInput}/>
+                                        </div>
 
-                                        <input type="text" className="form-control mb-3" name="hoTen" placeholder="Nhập Họ Tên ( Bắt Buộc )" required onChange={this.layThongTinInput} />
-
-                                        <input type="text" className="form-control mb-3" name="soDT" placeholder="Nhập Số Điện Thoại ( Bắt Buộc ) " required onChange={this.layThongTinInput} />
-
-                                        <input type="email" className="form-control mb-3" name="email" placeholder="Nhập Email ( Tùy Chọn ) " onChange={this.layThongTinInput} />
+                                        <div className="form-group">
+                                            <label>Phone:</label>
+                                            <input type="text" name="Phone" className="form-control" onChange={this.layThongTinInput}/>
+                                        </div>
 
                                         <button className="container btn btn-success mb-1 mt-2" onClick={() => this.props.DangKy(this.state)}>Đăng Ký</button>
                                         <hr />

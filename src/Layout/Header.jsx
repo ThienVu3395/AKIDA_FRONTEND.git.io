@@ -24,7 +24,7 @@ class Header extends Component {
         if (this.props.TrangThaiDangNhap === 0) {
             return (
                 <>
-                    <div className="regis pl-2 pr-2" data-toggle="modal" data-target="#dangNhap"><i className="fas fa-users mr-2"></i>Đăng Ký / Đăng Nhập</div>
+                    <button className="btn btn-info pl-2 pr-2" data-toggle="modal" data-target="#dangNhap"><i className="fas fa-users mr-2"></i>Đăng Ký / Đăng Nhập</button>
                     <ModalDangNhapDangKy />
                 </>
             );

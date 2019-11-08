@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { LayDanhSachNguoiDung, XoaNguoiDung, TimKiemNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import { XoaNguoiDung, TimKiemNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
 
@@ -17,7 +17,7 @@ class QuanLyNguoiDung extends Component {
     }
 
     componentDidMount() {
-        this.props.LayDanhSachNguoiDung();
+        this.props.TimKiemNguoiDung(this.state.Role,this.state.Activated);
     }
 
     chonNhom = (event) => {
@@ -66,14 +66,14 @@ class QuanLyNguoiDung extends Component {
                         </div>
                     </td>
                     <td>
-                        <button className="form-control btn btn-primary mb-3" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
-                        <button className="form-control btn btn-danger mb-3" onClick={() => this.props.XoaUser(item.ID_User)}><i className="fas fa-trash-alt"></i></button>
+                        <button className="form-control btn btn-primary mb-3" data-toggle="tooltip" title="Xem Danh Sách" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
+                        <button className="form-control btn btn-danger mb-3" onClick={() => this.props.XoaUser(item.ID_User)} data-toggle="tooltip" title="Xóa User Này"><i className="fas fa-trash-alt"></i></button>
                         {this.state.trangThaiSua === "0" ?
-                            <button className="form-control btn btn-primary" onClick={() => this.setState({ trangThaiSua: "1" })}><i className="fas fa-user-cog"></i></button> :
+                            <button className="form-control btn btn-primary" onClick={() => this.setState({ trangThaiSua: "1" })} data-toggle="tooltip" title="Tùy Chỉnh"><i className="fas fa-user-cog"></i></button> :
                             <div className="container">
                                 <div className="row">
-                                    <button className="btn btn-info col-lg-6"><i className="fas fa-edit"></i></button>
-                                    <button className="btn btn-primary col-lg-6" onClick={() => this.setState({ trangThaiSua: "0" })}><i className="fas fa-window-close"></i></button>
+                                    <button className="btn btn-info col-lg-6" data-toggle="tooltip" title="Cập Nhật!"><i className="fas fa-edit"></i></button>
+                                    <button className="btn btn-primary col-lg-6" onClick={() => this.setState({ trangThaiSua: "0" })} data-toggle="tooltip" title="Hủy Tùy Chỉnh"><i className="fas fa-window-close"></i></button>
                                 </div>
                                 <div className="form-group mt-3">
                                     <label>Trạng Thái</label>
@@ -130,7 +130,7 @@ class QuanLyNguoiDung extends Component {
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <button className="btn btn-success container mb-3" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i></button>
+                        <button className="btn btn-success container mb-3" data-toggle="tooltip" title="Thêm User Mới" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i></button>
                         <ModalThem tieuDe={"Thêm Người Dùng Mới"} />
                     </div>
                 </div>
@@ -167,10 +167,6 @@ const MapStateToProps = (state) => {
 
 const DispatchStateToProps = (dispatch) => {
     return {
-        LayDanhSachNguoiDung: () => {
-            dispatch(LayDanhSachNguoiDung())
-        },
-
         TimKiemNguoiDung: (Role, Activated) => {
             dispatch(TimKiemNguoiDung(Role, Activated))
         },

@@ -9,10 +9,6 @@ class ThongTinCaNhanContent extends Component {
         }
     }
 
-    componentDidMount() {
-        //this.props.xemThongTin()
-    }
-
     layThongTinInput = (event) => {
         const input = event.target;
         this.setState({
@@ -21,6 +17,7 @@ class ThongTinCaNhanContent extends Component {
     }
 
     render() {
+        let tk = JSON.parse(localStorage.getItem("UserLogin"));
         return (
             <div>
                 <Row>
@@ -53,15 +50,15 @@ class ThongTinCaNhanContent extends Component {
                         <div className="row">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="usr">Tài Khoản</label>
-                                    <input type="text" className="form-control" disabled />
+                                    <label htmlFor="usr">Email</label>
+                                    <input type="text" className="form-control" defaultValue={tk.Email} />
                                 </div>
                             </div>
 
                             <div className="col-6">
                                 <div className="form-group">
                                     <label htmlFor="usr">Họ Tên</label>
-                                    <input type="text" className="form-control"  name="hoTen" onChange={this.layThongTinInput}/>
+                                    <input type="text" className="form-control" defaultValue={tk.Name}  name="hoTen" onChange={this.layThongTinInput}/>
                                 </div>
                             </div>
                         </div>
@@ -69,15 +66,15 @@ class ThongTinCaNhanContent extends Component {
                         <div className="row">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="usr">Email</label>
-                                    <input type="text" className="form-control" name="email" onChange={this.layThongTinInput}/>
+                                    <label htmlFor="usr">Số Điện Thoại</label>
+                                    <input type="text" className="form-control" defaultValue={tk.Phone} name="email" onChange={this.layThongTinInput}/>
                                 </div>
                             </div>
 
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="usr">Số Điện Thoại</label>
-                                    <input type="text" className="form-control" name="soDT" onChange={this.layThongTinInput}/>
+                                    <label htmlFor="usr">Ngày Tạo</label>
+                                    <input type="text" className="form-control" defaultValue={tk.Created_Time} name="soDT" onChange={this.layThongTinInput}/>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +111,7 @@ class ThongTinCaNhanContent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        thongTinCaNhan: state.HomePageReducer.ThongTinCaNhan
+        //ThongTinCaNhan: state.HomePageReducer.ThongTinCaNhan
     }
 }
 

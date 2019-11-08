@@ -55,10 +55,10 @@ class ModalThem extends Component {
                                     <input type="text" className="form-control" name="Phone" onChange={this.layThongTinInput} defaultValue={this.state.Phone} />
                                 </div>
 
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label>Ảnh Đại Diện</label>
                                     <input type="file" className="form-control-file border"></input>
-                                </div>
+                                </div> */}
 
                                 <div className="row">
                                     <div className="form-group col-lg-6">
@@ -81,7 +81,7 @@ class ModalThem extends Component {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-info container" onClick={() => this.props.themNguoiDung(this.state)}><i className="fas fa-user-plus mr-2"></i>Thêm</button>
+                            <button type="button" className="btn btn-info container" onClick={() => this.props.ThemNguoiDung(this.state)}><i className="fas fa-user-plus mr-2"></i>Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -90,15 +90,9 @@ class ModalThem extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-
-    }
-}
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        themNguoiDung: (objThem) => {
+        ThemNguoiDung: (objThem) => {
             let cf = window.confirm('Bạn chắc chắn thêm 1 người dùng mới với thông tin trên chứ ?')
             if (cf) {
                 dispatch(ThemNguoiDung(objThem))
@@ -117,4 +111,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalThem)
+export default connect(null, mapDispatchToProps)(ModalThem)

@@ -4,7 +4,7 @@ import ModalThem from '../../../../components/QuanLyKhoaHoc/ModalThem';
 import ModalSua from '../../../../components/QuanLyKhoaHoc/ModalSua';
 import ModalDanhSach from '../../../../components/QuanLyKhoaHoc/ModalDanhSach';
 import { Table } from 'react-bootstrap';
-import { LayDanhSachKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
+import { LayDanhSachKhoaHoc , XemThongTinKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
 import { LayDanhSachDanhMuc } from '../../../../Redux/Actions/HomePage/HomePage.action';
 
 class QuanLyKhoaHoc extends Component {
@@ -26,9 +26,9 @@ class QuanLyKhoaHoc extends Component {
                 <tr key={key}>
                     <td>
                         <img src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_960_720.png" alt="Card" style={{ width: '100%', height: "200px" }} />
-                        <div className="alert alert-danger text-center mt-2">
+                        {/* <div className="alert alert-danger text-center mt-2">
                             <strong>{key + 1}</strong>
-                        </div>
+                        </div> */}
                     </td>
 
                     <td>
@@ -52,7 +52,8 @@ class QuanLyKhoaHoc extends Component {
                     <td>
                         <button className="form-control btn btn-primary mb-3" data-toggle="modal" data-target="#ModalDanhSachKhoaHoc"><i className="fas fa-list"></i></button>
                         <ModalDanhSach />
-                        <button className="form-control btn btn-info mb-3" data-toggle="modal" data-target="#ModalSua"><i className="fas fa-calendar-plus"></i></button>
+                        <button className="form-control btn btn-info mb-3" data-toggle="modal" data-target="#ModalSua" onClick={()=>this.props.XemThongTinKhoaHoc(item.ID)}><i className="fas fa-calendar-plus"></i></button>
+                        <ModalSua tieuDe={"Sửa Khóa Học"} />
                         <button className="form-control btn btn-danger"><i className="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
@@ -123,7 +124,6 @@ class QuanLyKhoaHoc extends Component {
                     </thead>
                     <tbody>
                         {this.renderKhoaHoc()}
-                        <ModalSua tieuDe={"Sửa Khóa Học"} />
                     </tbody>
                 </Table>
 
@@ -153,6 +153,10 @@ const dispatchStateToProps = (dispatch) => {
 
         LayDanhSachDanhMuc: () => {
             dispatch(LayDanhSachDanhMuc())
+        },
+
+        XemThongTinKhoaHoc : (idKH) => {
+            dispatch(XemThongTinKhoaHoc(idKH))
         }
     }
 }
