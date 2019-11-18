@@ -16,4 +16,10 @@ export const DANG_KY = 'DANG_KY';
 
 export const DANG_NHAP = 'DANG_NHAP';
 
-export const DANG_XUAT = 'DANG_XUAT'
+export const DANG_XUAT = 'DANG_XUAT';
+
+export const DOI_THONG_TIN_CA_NHAN = 'DOI_THONG_TIN_CA_NHAN';
+
+export const KIEM_TRA_THONG_TIN_CA_NHAN = 'KIEM_TRA_THONG_TIN_CA_NHAN';
+
+export const DOI_MAT_KHAU = 'DOI_MAT_KHAU'

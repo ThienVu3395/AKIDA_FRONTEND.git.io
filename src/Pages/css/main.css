@@ -44,3 +44,15 @@
 .bg-bold-gray .container .row div:hover{
 	color:orangered
 }
+
+
+.parent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 150px;
+}
+
+.parent div a{
+	color: #212121 !important;
+}

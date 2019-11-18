@@ -117,19 +117,22 @@ export const LayChiTietKhoaHoc = (idKhoaHoc) => {
     }
 }
 
-export const DangNhap = (objDangNhap) => {
+export const DangNhap = (Email,Password) => {
     return (dispatch) => {
+        let objDangNhap = {
+            Email : Email,
+            Password : Password
+        }
         axios({
             url: CauHinh.domain + `API/DangNhap`,
             method: "POST",
             data : objDangNhap,
         }).then((result) => {
-            result.data.Role = "1";
+            // result.data.Role = "1";
             Swal.fire("Thông Báo", "Đăng Nhập Thành Công", "success");
-            localStorage.setItem("UserLogin",JSON.stringify(result.data));
             dispatch({
                 type: types.DANG_NHAP,
-                // UserDangNhap: result.data
+                UserDangNhap: result.data
             })
         }).catch(() => {
             Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
@@ -137,21 +140,19 @@ export const DangNhap = (objDangNhap) => {
     }
 }
 
-export const DangKy = (objDangKy) => {
+export const DangKy = (objUser) => {
     return (dispatch) => {
-        console.log(objDangKy)
         axios({
             url: CauHinh.domain + `API/DangKy`,
             method: "POST",
-            data : objDangKy,
+            data: objUser,
         }).then((result) => {
-            Swal.fire("Thông Báo", "Đăng Ký Thành Công" , "success");
+            Swal.fire("Thông Báo", result.data , "success");
             dispatch({
-                type: types.DANG_KY,
-                UserDangKy : result.data
+                type: types.DANG_KY
             })
         }).catch(() => {
-            Swal.fire("Thông Báo", "Sai Tên Đăng Nhập Hoặc Mật Khẩu", "error");
+            Swal.fire("Thông Báo", "Có lỗi" , "error");
         })
     }
 }
@@ -160,6 +161,60 @@ export const DangXuat = () => {
     return (dispatch) => {
         dispatch({
             type: types.DANG_XUAT
+        })
+    }
+}
+
+export const DoiThongTinCaNhan = (objUser) => {
+    return (dispatch) => {
+        let objSuaThongTin = {
+            ID_User : objUser.ID_User,
+            Name : objUser.Name,
+            Email : objUser.Email,
+            Phone : objUser.Phone
+        }
+        axios({
+            url: CauHinh.domain + `API/DoiThongTinCaNhan`,
+            method: "PUT",
+            data: objSuaThongTin,
+        }).then((result) => {
+            Swal.fire("Thông Báo", result.data , "success");
+            dispatch({
+                type: types.DOI_THONG_TIN_CA_NHAN,
+                objSuaThongTin : objSuaThongTin
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", "Có Lỗi", "error");
+        })
+    }
+}
+
+export const KiemTraThongTinCaNhan = () => {
+    return (dispatch) => {
+        dispatch({
+            type: types.KIEM_TRA_THONG_TIN_CA_NHAN
+        })
+    }
+}
+
+export const DoiMatKhau = (objUser) => {
+    return (dispatch) => {
+        let objDoiMatKhau = {
+            ID_User : objUser.ID_User,
+            Password : objUser.oldPass,
+            NewPassword : objUser.newPass,
+        }
+        axios({
+            url: CauHinh.domain + `API/DoiMatKhau`,
+            method: "PUT",
+            data: objDoiMatKhau,
+        }).then((result) => {
+            Swal.fire("Thông Báo", result.data , "success");
+            dispatch({
+                type: types.DOI_MAT_KHAU,
+            })
+        }).catch((error) => {
+            Swal.fire("Thông Báo", "Mật Khẩu Cũ Không Đúng,Xin Vui Lòng Nhập Lại", "error");
         })
     }
 }

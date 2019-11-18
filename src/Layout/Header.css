@@ -1,5 +1,8 @@
 .header-top{
-    background-color: #069D86
+    background-color: wheat;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+    /* position: relative;
+    z-index: 10; */
 }
 
 .logo{
@@ -9,6 +12,7 @@
     text-indent: -500px;
     width: 150px
 }
+
 
 .categories{
     background-color: #11927D;
@@ -37,7 +41,7 @@
 }
 
 .form .row div{
-    color: wheat
+    color: #5f6368 ;
 }
 
 .login{
@@ -115,8 +119,180 @@
 .cart-quantity{
     height: 5px;
     width: 10px;
+    
 }
 
 .bg-bold-gray{
-    background-color: #aba8a8;;
+    /* background-color: #aba8a8; */
+    background: linear-gradient(-45deg,
+#EC5252 0%,#6E1A52 100%);
 }
+
+.viewall {
+    margin-right:24px;
+    color:#fff;
+    background-color:#ec5252;
+    border: 1px solid transparent;
+}
+.loginbtn {
+    color:#fff;background-color:#ec5252;
+    border: 1px solid transparent;
+    padding: 8px;
+}
+.titleCourse{
+    margin-left:16px;
+}
+
+.nav-link{
+    color: #5f6368 !important;
+    /* transition: 0.1s ease-in; */
+}
+
+.nav-link:focus {
+    color: whitesmoke !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+
+    color: #fff;
+    background-color: wheat;
+
+}
+
+.card-body > a {
+    color: #212121 !important;
+}
+
+/* CSS Header Udemy */
+  .myNavBar {
+    padding: 10px;
+    border-bottom: 1px solid #cacbcc; }
+    .myNavBar .myNavBar__left {
+      flex-wrap: wrap; }
+      .myNavBar .myNavBar__left .navbar-brand {
+        flex-grow: 1; }
+        .myNavBar .myNavBar__left .navbar-brand img {
+          width: 110px; }
+      .myNavBar .myNavBar__left .categories {
+        color: #505763;
+        font-size: 13px;
+        font-weight: normal;
+        cursor: pointer;
+        flex-grow: 1;
+        padding-top: 15px; }
+        .myNavBar .myNavBar__left .categories i {
+          color: #a1a7b3; }
+      .myNavBar .myNavBar__left .form_search {
+        flex-grow: 4; }
+        .myNavBar .myNavBar__left .form_search input {
+          background-color: rgba(20, 23, 28, 0.05);
+          font-size: 15px;
+          border-radius: 0;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          -ms-border-radius: 0;
+          -o-border-radius: 0;
+          border: 1px solid rgba(20, 23, 28, 0.05);
+          border-right: 1px solid transparent;
+          padding: 12px 15px; }
+          .myNavBar .myNavBar__left .form_search input:focus {
+            background-color: #fff;
+            border: 1px solid #cacbcc;
+            box-shadow: none; }
+        .myNavBar .myNavBar__left .form_search .input-group-text {
+          background-color: rgba(20, 23, 28, 0.05);
+          font-size: 15px;
+          border-radius: 0;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          -ms-border-radius: 0;
+          -o-border-radius: 0;
+          border: none;
+          cursor: pointer; }
+          .myNavBar .myNavBar__left .form_search .input-group-text i {
+            color: #ec5252; }
+          .myNavBar .myNavBar__left .form_search .input-group-text:hover {
+            background-color: #ec5252; }
+            .myNavBar .myNavBar__left .form_search .input-group-text:hover i {
+              color: #fff; }
+    .myNavBar #myNavBarID .nav-item {
+      flex-grow: 1;
+      position: relative; }
+      .myNavBar #myNavBarID .nav-item .overlay {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #a1a7b3;
+        width: 350px;
+        top: 56px;
+        left: -100%; }
+        .myNavBar #myNavBarID .nav-item .overlay:before {
+          content: "";
+          width: 15px;
+          height: 15px;
+          position: absolute;
+          top: -9px;
+          right: 10%;
+          background-color: #fff;
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+          border-top: 1px solid #a1a7b3;
+          border-left: 1px solid #a1a7b3;
+          z-index: 3; }
+      .myNavBar #myNavBarID .nav-item .nav-link {
+        color: #505763;
+        font-size: 13px;
+        font-weight: normal;
+        margin-top: 5px; }
+      .myNavBar #myNavBarID .nav-item:hover {
+        background-color: rgba(20, 23, 28, 0.05); }
+        .myNavBar #myNavBarID .nav-item:hover .overlay {
+          display: block;
+          z-index: 2; }
+    .myNavBar #myNavBarID .icon_cart {
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      max-width: 50px; }
+      .myNavBar #myNavBarID .icon_cart i {
+        font-size: 20px; }
+    .myNavBar #myNavBarID .nav__button:hover {
+      background-color: transparent; }
+    @media screen and (max-width: 1200px) {
+      .myNavBar #myNavBarID .bussiness, .myNavBar #myNavBarID .instructor {
+        display: none; } }
+    @media screen and (max-width: 768px) {
+      .myNavBar .categories, .myNavBar .form_search {
+        display: none; } }
+  
+  .button__login {
+    font-weight: 600;
+    font-size: 15px;
+    color: #686f7a;
+    background-color: #fff;
+    border: 1px solid #505763;
+    padding: 11px 12px; }
+    .button__login:hover {
+      background-color: rgba(20, 23, 28, 0.05); }
+  
+  .button__signup {
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    background-color: #ec5252;
+    border: 1px solid #ec5252;
+    padding: 11px 12px; }
+    .button__signup:hover {
+      background-color: #521822; }
+  
+  /*# sourceMappingURL=style.css.map */
+  
+  
+  /*# sourceMappingURL=style.css.map */
+  

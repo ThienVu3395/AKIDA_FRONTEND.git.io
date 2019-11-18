@@ -43,12 +43,12 @@ class DanhSachKhoaHoc extends Component {
             return (
                 <Tab key={key} eventKey={item.ID_Category} title={item.Name} className="mt-3">
                     {/* <BlockUi tag="div" blocking={this.state.blocking} message="Loading, Please Wait..."> */}
-                        <div className="container">
-                            <Slider {...set}>
-                                {this.renderKhoaHocTheoDanhMuc()}
-                                {/* <button className="btn btn-success">Xem Thêm</button> */}
-                            </Slider>
-                        </div>
+                    <div className="container">
+                        <Slider {...set}>
+                            {this.renderKhoaHocTheoDanhMuc()}
+                            {/* <button className="btn btn-success">Xem Thêm</button> */}
+                        </Slider>
+                    </div>
                     {/* </BlockUi> */}
                 </Tab>
             )
@@ -89,7 +89,7 @@ class DanhSachKhoaHoc extends Component {
         const settings2 = {
             infinite: false,
             speed: 500,
-            slidesToShow: 5
+            slidesToShow: 4
         };
         return (
             <div className="container">
@@ -108,15 +108,22 @@ class DanhSachKhoaHoc extends Component {
                     </div>
                 </div>
 
-                <div className="container mt-5">
-                    <h2 className="mb-3">KHÓA HỌC MỚI NHẤT</h2>
+                <div className="container mt-5 mb-2">
+                    <div className="row justify-content-between">
+                        <h3 className="mb-3 titleCourse">KHÓA HỌC MỚI NHẤT</h3>
+                        <button className="viewall">Xem Tất Cả</button>
+                    </div>
+
                     <Slider {...settings2}>
                         {this.renderKhoaHocMoiNhat()}
                     </Slider>
                 </div>
 
-                <div className="container mt-5">
-                    <h2 className="mb-3">KHÓA HỌC TIÊU BIỂU</h2>
+                <div className="container mt-5 mb-2">
+                    <div className="row justify-content-between">
+                        <h3 className="mb-3 titleCourse">KHÓA HỌC TIÊU BIỂU</h3>
+                        <button className="viewall">Xem Tất Cả</button>
+                    </div>
                     <Slider {...settings2}>
                         {this.renderKhoaHocTieuBieu()}
                     </Slider>

@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {ThemKhoaHoc} from '../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
+import {storage} from './../../common/FireBase';
+import { ThemKhoaHoc , UploadHinh} from '../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
+import CKEditor from "react-ckeditor-component";
 
 class ModalThem extends Component {
     constructor(props) {
         super(props);
         let tk = JSON.parse(localStorage.getItem('UserLogin'));
+        // test ckeditor
+        this.updateContent = this.updateContent.bind(this);
         this.state = {
-            Name : "",
-            Category_ID : 3,
-            Enabled : 1,
-            Author : tk.Name,
-            Created_Time : "2019-11-01",
-            Short_Description : "",
-            Number_Of_Participants : 666,
-            Video_Info_ID : 1,
-            Cost_Aki : 0
+            Name: "",
+            Category_ID: 3,
+            Enabled: 1,
+            Author: tk.Name,
+            Created_Time: "2019-11-01",
+            Short_Description: "",
+            Number_Of_Participants: 666,
+            Video_Info_ID: 1,
+            Cost_Aki: 0,
+            Content: '',
+            Image: "",
+            File : null
         }
     }
 
@@ -27,12 +34,58 @@ class ModalThem extends Component {
     }
 
     layHinhAnh = (event) => {
-        const input = event.target;
+        const img = event.target.files[0]
         this.setState({
-            [input.name]: input.files[0].name,
+            File : img
+        })
+        const uploadTask = storage.ref(`image/${img.name}`).put(img);
+        uploadTask.on('state_changed',
+        (snapshot) => {
+            
+        },
+        (error) => {
+            alert("sai")
+            console.log(error)
+        },
+        () => {
+            storage.ref('image').child(img.name).getDownloadURL().then(url=>{
+                this.setState({
+                    Image : url
+                })
+            })
         })
     }
 
+    // UploadHinh = (e) => {
+    //     e.preventDefault();
+    //     let file = this.state.File;
+    //     let formData = new FormData();
+    //     formData.append("hinhAnh",file);
+    //     this.props.UploadHinh(formData);
+    // }
+
+    // CKEditor trong phần soạn thảo nội dung khóa học
+    updateContent = (newContent) => {
+        this.setState({
+            Content: newContent
+        })
+    }
+
+    onChange = (evt) => {
+        // console.log("onChange fired with event info: ", evt);
+        var newContent = evt.editor.getData();
+        this.setState({
+            Content: newContent
+        })
+    }
+
+    onBlur = (evt) => {
+        //console.log("onBlur event called with event info: ", evt);
+    }
+
+    afterPaste = (evt) => {
+        //console.log("afterPaste event called with event info: ", evt);
+    }
     render() {
         return (
             <div className="modal fade" id="ModalThem">
@@ -54,7 +107,7 @@ class ModalThem extends Component {
                                 <div className="row">
                                     <div className="form-group col-6">
                                         <label htmlFor="sel1">Danh Mục :</label>
-                                        <select className="form-control" name="ID_Category" onChange={this.layThongTinInput}>
+                                        <select className="form-control" name="Category_ID" onChange={this.layThongTinInput}>
                                             {
                                                 this.props.dsDanhMuc.map((item, key) => {
                                                     return (
@@ -75,16 +128,32 @@ class ModalThem extends Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="pwd">Mô Tả :</label>
+                                    <label htmlFor="pwd">Hình Ảnh :</label>
+                                    {/* <form> */}
+                                        <input type="file" className="form-control-file border" name="Image" onChange={this.layHinhAnh}></input>
+                                        {/* <button className="btn btn-success mt-2" onClick={(e)=>this.UploadHinh(e)}><i className="fas fa-file-upload mr-2"></i>Upload</button> */}
+                                    {/* </form> */}
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="pwd">Mô Tả Ngắn :</label>
                                     <textarea className="form-control" name="Short_Description" onChange={this.layThongTinInput} value={this.state.moTa}></textarea>
                                 </div>
 
-                                {/* <div className="form-group">
-                                    <label htmlFor="pwd">Hình Ảnh :</label>
-                                    <input type="file" className="form-control-file border" name="hinhAnh" onChange={this.layHinhAnh}></input>
-                                </div> */}
+                                <div className="form-group">
+                                    <label htmlFor="pwd">Nội Dung :</label>
+                                    <CKEditor
+                                        activeClass="p10"
+                                        content={this.state.Content}
+                                        events={{
+                                            "blur": this.onBlur,
+                                            "afterPaste": this.afterPaste,
+                                            "change": this.onChange
+                                        }}
+                                    />
+                                </div>
 
-                                <button className="btn btn-info container" onClick={()=>this.props.ThemKhoaHoc(this.state)}>Xác Nhận Thêm</button>
+                                <button className="btn btn-info container" onClick={() => this.props.ThemKhoaHoc(this.state)}>Xác Nhận Thêm</button>
                             </div>
                         </div>
                     </div>
@@ -102,8 +171,12 @@ const mapStateToProps = (state) => {
 
 const DispatchStateToProps = (dispatch) => {
     return {
-        ThemKhoaHoc : (objThem) => {
+        ThemKhoaHoc: (objThem) => {
             dispatch(ThemKhoaHoc(objThem))
+        },
+
+        UploadHinh:(objHinh) => {
+            dispatch(UploadHinh(objHinh))
         }
     }
 }

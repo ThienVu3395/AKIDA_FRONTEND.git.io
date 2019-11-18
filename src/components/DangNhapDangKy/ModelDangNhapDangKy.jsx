@@ -6,7 +6,6 @@ import { DangNhap, DangKy } from '../../Redux/Actions/HomePage/HomePage.action';
 class ModelDangNhapDangKy extends Component {
     constructor(props) {
         super(props);
-        //var date = new Date()
         this.state = {
             Activated: "1",
             Name : "",
@@ -14,7 +13,8 @@ class ModelDangNhapDangKy extends Component {
             Phone : "",
             Password:"",
             AKIDA_Number : 0,
-            Created_Time : "2019-11-07",
+            Created_Time : "2012/12/12",
+            Role_ID : "3"
         }
     }
 
@@ -24,6 +24,7 @@ class ModelDangNhapDangKy extends Component {
             [input.name]: input.value
         })
     }
+    
     render() {
         return (
             <div>
@@ -41,7 +42,7 @@ class ModelDangNhapDangKy extends Component {
                                         <a className="nav-link" data-toggle="tab" href="#menu1">Đăng Ký</a>
                                     </li>
                                 </ul>
-                                <button type="button" className="close" id="close" data-dismiss="modal">×</button>
+                                <button type="button" className="close" id="close closediba" data-dismiss="modal">×</button>
                             </div>
                             {/* close Modal Header */}
 
@@ -56,7 +57,7 @@ class ModelDangNhapDangKy extends Component {
 
                                         {/* <p className="text-center">Bạn Quên Mật Khẩu ? Nhấn Vào <a href="asdas.html">Đây</a></p> */}
 
-                                        <button className="btn btn-success container" onClick={() => this.props.DangNhap(this.state)} data-dismiss="modal">Đăng Nhập</button>
+                                        <button className="loginbtn container" onClick={() => this.props.DangNhap(this.state.Email,this.state.Password)} data-dismiss="modal">Đăng Nhập</button>
                                         <hr />
                                         {/* <button className="btn fb container fb mb-3"><i className="fab fa-facebook-f mr-2"></i>Đăng Nhập Bằng Facebook</button>
 
@@ -66,14 +67,6 @@ class ModelDangNhapDangKy extends Component {
 
                                     {/* Form Đăng Ký */}
                                     <div id="menu1" className="container tab-pane fade"><br />
-                                        <div className="form-group">
-                                            <label>Trạng Thái :</label>
-                                            <select className="form-control" name="Activated" defaultValue={this.state.Activated} onChange={this.layThongTinInput}>
-                                                <option value="1">Hiện</option>
-                                                <option value="0">Ẩn</option>
-                                            </select>
-                                        </div>
-
                                         <div className="form-group">
                                             <label>Name:</label>
                                             <input type="text" name="Name" className="form-control" onChange={this.layThongTinInput} />
@@ -94,7 +87,7 @@ class ModelDangNhapDangKy extends Component {
                                             <input type="text" name="Phone" className="form-control" onChange={this.layThongTinInput}/>
                                         </div>
 
-                                        <button className="container btn btn-success mb-1 mt-2" onClick={() => this.props.DangKy(this.state)}>Đăng Ký</button>
+                                        <button className="container loginbtn mb-1 mt-2" onClick={() => this.props.DangKy(this.state)}>Đăng Ký</button>
                                         <hr />
                                         {/* <button className="btn fb container fb mb-3"><i className="fab fa-facebook-f mr-2"></i>Đăng Ký Bằng Facebook</button>
                                         <button className="btn gg container gg"><i className="fab fa-google mr-2"></i>Đăng Ký Bằng Google</button> */}
@@ -112,8 +105,8 @@ class ModelDangNhapDangKy extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DangNhap: (objDangNhap) => {
-            dispatch(DangNhap(objDangNhap))
+        DangNhap: (mail,pass) => {
+            dispatch(DangNhap(mail,pass))
         },
 
         DangKy: (objDangKy) => {

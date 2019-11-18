@@ -3,29 +3,63 @@ import { connect } from 'react-redux';
 import ModalThem from '../../../../components/QuanLyKhoaHoc/ModalThem';
 import ModalSua from '../../../../components/QuanLyKhoaHoc/ModalSua';
 import ModalDanhSach from '../../../../components/QuanLyKhoaHoc/ModalDanhSach';
-import { Table } from 'react-bootstrap';
-import { LayDanhSachKhoaHoc , XemThongTinKhoaHoc , XoaKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
+import { Table, Pagination } from 'react-bootstrap';
+import { LayDanhSachKhoaHocTheoTuyChon, XemThongTinKhoaHoc, XoaKhoaHoc, PhanTrangKhoaHoc } from '../../../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action';
 import { LayDanhSachDanhMuc } from '../../../../Redux/Actions/HomePage/HomePage.action';
 
 class QuanLyKhoaHoc extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            ID: "",
+            Category_ID: "all",
+            Enabled: "-1",
+            PageSelected : 1
         }
     }
 
     componentDidMount() {
-        this.props.LayDanhSachKhoaHoc();
-        this.props.LayDanhSachDanhMuc()
+        this.props.LayDanhSachKhoaHocTheoTuyChon(this.state.Category_ID, this.state.Enabled);
+        this.props.LayDanhSachDanhMuc();
+    }
+
+    XemThongTin = (idKH) => {
+        this.setState({
+            ID: idKH
+        })
+        this.props.XemThongTinKhoaHoc(idKH);
+    }
+
+    chonNhom = (event) => {
+        const input = event.target;
+        this.setState({
+            [input.name]: input.value
+        })
+    }
+
+    PhanTrangKhoaHoc = (page,IdCategory,status) => {
+        this.setState({
+            PageSelected : page
+        })
+        this.props.PhanTrangKhoaHoc(page,IdCategory,status)
     }
 
     renderKhoaHoc = () => {
-        return this.props.dsKhoaHoc.map((item, key) => {
+        let length = this.props.dsKhoaHoc.length;
+        let content;
+        if (length === 0) {
+            return content = (
+                <div className="col-12 text-center">
+                    <img src="http://tatnhapkhau.com/images/page_not_found.jpg" alt="imgs" />
+                </div>
+            )
+        }
+        content = this.props.dsKhoaHoc.map((item, key) => {
             return (
                 <tr key={key}>
                     <td>
-                        <img src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_960_720.png" alt="Card" style={{ width: '100%', height: "200px" }} />
+                        {/* <img src={item.Image !== null ? window.location.origin + '/Img/KhoaHoc/' + item.Image : "http://tatnhapkhau.com/images/page_not_found.jpg"} alt="Card" style={{ width: '100%', height: "200px" }} /> */}
+                        <img src={item.Image !== null ? item.Image : "http://tatnhapkhau.com/images/page_not_found.jpg"} alt="Card" style={{ width: '100%', height: "200px" }} />
                         {/* <div className="alert alert-danger text-center mt-2">
                             <strong>{key + 1}</strong>
                         </div> */}
@@ -33,32 +67,32 @@ class QuanLyKhoaHoc extends Component {
 
                     <td>
                         <div className="alert alert-primary">
-                            <strong>Tên Khóa Học : </strong>{item.Name}
-                        </div>
+                            <p><strong>Tên Khóa Học : </strong>{item.Name}</p>
+                            <p><strong>Giảng Viên : </strong>{item.Author}</p>
+                            <p><strong>Danh Mục : </strong>{item.Category_Name}</p>
+                            <p><strong>Số Người Học : </strong>{item.Number_Of_Participants}</p>
 
-                        <div className="alert alert-primary">
-                            <strong>Giảng Viên : </strong>{item.Author}
-                        </div>
-
-                        <div className="alert alert-primary">
-                            <strong>Danh Mục : </strong>{item.Category_Name}
-                        </div>
-
-                        <div className="alert alert-primary">
-                            <strong>Số Người Học : </strong>{item.Number_Of_Participants}
                         </div>
                     </td>
 
                     <td>
-                        <button className="form-control btn btn-primary mb-3" data-toggle="modal" data-target="#ModalDanhSachKhoaHoc"><i className="fas fa-list"></i></button>
-                        <ModalDanhSach />
-                        <button className="form-control btn btn-info mb-3" data-toggle="modal" data-target="#ModalSua" onClick={()=>this.props.XemThongTinKhoaHoc(item.ID)}><i className="fas fa-calendar-plus"></i></button>
-                        <ModalSua tieuDe={"Sửa Khóa Học"} />
-                        <button className="form-control btn btn-danger" onClick={()=>this.props.XoaKhoaHoc(item.ID)}><i className="fas fa-trash-alt"></i></button>
+                        <button className="form-control btn btn-primary mb-3" data-toggle="tooltip" title="Xem Danh Sách" data-toggle="modal" data-target="#ModalDanhSachKhoaHoc"><i className="fas fa-list"></i></button>
+
+                        <button className="form-control btn btn-info mb-3" data-toggle="tooltip" title="Sửa Thông Tin Khóa Học" data-toggle="modal" data-target="#ModalSua" onClick={() => this.XemThongTin(item.ID)}><i className="fas fa-edit"></i></button>
+                        <button className="form-control btn btn-danger" data-toggle="tooltip" title="Xóa Khóa Học Này" onClick={() => this.props.XoaKhoaHoc(item.ID)}><i className="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
             )
         })
+        return content
+    }
+
+    renderSoTrang = () => {
+        let row = [];
+        for (let i = 1; i <= this.props.tongSoTrang; i++) {
+            row.push(i)
+        }
+        return row;
     }
 
     // timKiem = (event) => {
@@ -83,7 +117,7 @@ class QuanLyKhoaHoc extends Component {
                 </div> */}
                 <div className="row">
                     <div className="form-group col-lg-3">
-                        <select className="form-control" name="maDanhMuc">
+                        <select className="form-control" name="Category_ID" defaultValue={this.state.Category_ID} onChange={this.chonNhom}>
                             <option value="all">-- Danh Mục --</option>
                             {
                                 this.props.dsDanhMuc.map((item, key) => {
@@ -96,20 +130,20 @@ class QuanLyKhoaHoc extends Component {
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <select className="form-control" name="maNhom">
-                            <option>-- Trạng Thái --</option>
-                            <option value="GP01">Hiện</option>
-                            <option value="GP02">Ẩn</option>
+                        <select className="form-control" name="Enabled" defaultValue={this.state.Enabled} onChange={this.chonNhom}>
+                            <option value="-1">-- Trạng Thái --</option>
+                            <option value="1">Hiện</option>
+                            <option value="0">Ẩn</option>
                         </select>
                     </div>
 
 
                     <div className="form-group col-lg-3">
-                        <button className="form-control btn btn-success"><i className="fas fa-sort mr-2"></i>Lọc</button>
+                        <button className="form-control btn btn-success" onClick={() => this.props.LayDanhSachKhoaHocTheoTuyChon(this.state.Category_ID, this.state.Enabled)}><i className="fas fa-sort mr-2"></i>Lọc</button>
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <button className="form-control btn btn-success" data-toggle="modal" data-target="#ModalThem"><i className="fas fa-calendar-plus"></i></button>
+                        <button className="form-control btn btn-success" data-toggle="tooltip" title="Thêm Khóa Học Mới" data-toggle="modal" data-target="#ModalThem"><i className="fas fa-plus"></i></button>
                         <ModalThem tieuDe={"Thêm Khóa Học Mới"} />
                     </div>
                 </div>
@@ -124,14 +158,20 @@ class QuanLyKhoaHoc extends Component {
                     </thead>
                     <tbody>
                         {this.renderKhoaHoc()}
+                        <ModalDanhSach />
+                        <ModalSua tieuDe={"Sửa Khóa Học"} idKH={this.state.ID} />
                     </tbody>
                 </Table>
 
-                <ul className="pagination pagination-lg justify-content-center">
-                    <li className="page-item"><a className="page-link" href="a">1</a></li>
-                    <li className="page-item"><a className="page-link" href="a">2</a></li>
-                    <li className="page-item"><a className="page-link" href="a">3</a></li>
-                </ul>
+                <Pagination className="pagination justify-content-center">
+                    { 
+                        this.renderSoTrang().map((item, key) => {
+                            return (
+                                <Pagination.Item onClick={()=>this.PhanTrangKhoaHoc(key+1,this.state.Category_ID,this.state.Enabled)} key={key} active={key+1 === this.state.PageSelected}>{key+1}</Pagination.Item>
+                            )
+                        })
+                    }
+                </Pagination>
             </div>
         )
     }
@@ -141,30 +181,35 @@ class QuanLyKhoaHoc extends Component {
 const mapStateToProps = (state) => {
     return {
         dsKhoaHoc: state.QuanLyKhoaHocReducer.DanhSachKhoaHoc,
+        tongSoTrang : state.QuanLyKhoaHocReducer.TongSoTrang,
         dsDanhMuc: state.HomePageReducer.DanhSachDanhMuc
     }
 }
 
 const dispatchStateToProps = (dispatch) => {
     return {
-        LayDanhSachKhoaHoc: () => {
-            dispatch(LayDanhSachKhoaHoc())
+        LayDanhSachKhoaHocTheoTuyChon: (idDanhMuc, TrangThai) => {
+            dispatch(LayDanhSachKhoaHocTheoTuyChon(idDanhMuc, TrangThai))
         },
 
         LayDanhSachDanhMuc: () => {
             dispatch(LayDanhSachDanhMuc())
         },
 
-        XemThongTinKhoaHoc : (idKH) => {
+        XemThongTinKhoaHoc: (idKH) => {
             dispatch(XemThongTinKhoaHoc(idKH))
         },
 
-        XoaKhoaHoc : (idKH) => {
+        XoaKhoaHoc: (idKH) => {
             let cf = window.confirm("Bạn chắc xóa khóa học này không ?");
-            if(cf){
+            if (cf) {
                 dispatch(XoaKhoaHoc(idKH))
             }
             return;
+        },
+
+        PhanTrangKhoaHoc: (page, idDanhMuc, trangThai) => {
+            dispatch(PhanTrangKhoaHoc(page, idDanhMuc, trangThai))
         }
     }
 }

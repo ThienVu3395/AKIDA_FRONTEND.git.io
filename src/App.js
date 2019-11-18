@@ -6,7 +6,7 @@ import ChiTietKhoaHoc from './Pages/ChiTietKhoaHoc';
 import ThongTinCaNhan from './Pages/ThongTinCaNhan';
 import KichHoatKhoaHoc from './Pages/KichHoatKhoaHoc';
 import NapThe from './Pages/NapThe';
-import QuanTri from './Pages/QuanTri/index'
+import QuanTri from './Pages/QuanTri/index';
 
 export default class App extends Component {
   render() {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { CapNhatThongTin } from '../../Redux/Actions/Elearning.action';
 import { ThemNguoiDung } from '../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 
 class ModalThem extends Component {
@@ -14,7 +13,7 @@ class ModalThem extends Component {
             Created_Time: "2012/12/12",
             AKIDA_Number: 0,
             Phone: "",
-            Role: "2"
+            Role: "3"
         }
     }
 
@@ -99,15 +98,6 @@ const mapDispatchToProps = (dispatch) => {
             }
             return;
         },
-
-        // capNhatNguoiDung: (objSua) => {
-        //     let cf = window.confirm('Bạn chắc chắn sửa người dùng này với thông tin bên dưới chứ ?')
-        //     if (cf) {
-        //         dispatch(CapNhatThongTin(objSua))
-        //     }
-        //     return;
-        // },
-
     }
 }
 

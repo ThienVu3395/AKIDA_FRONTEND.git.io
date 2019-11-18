@@ -3,12 +3,22 @@ import * as types from '../../Constants/QuanLyKhoaHoc/QuanLyKhoaHoc.constants';
 
 let stateQuanLyKhoaHoc = {
     DanhSachKhoaHoc : [],
-    ChiTietKhoaHoc : {}
+    ChiTietKhoaHoc : {},
+    TongSoTrang : 0,
+    SanPhamMoiTrang : 5
 }
 
 const QuanLyKhoaHocReducer = (state = stateQuanLyKhoaHoc, action) => {
     switch (action.type) {
         case types.LAY_DANH_SACH_KHOA_HOC : {
+            state.DanhSachKhoaHoc = action.dsKhoaHoc;
+            let allPages = Math.ceil(action.dsKhoaHoc.length/state.SanPhamMoiTrang);
+            state.TongSoTrang = allPages;
+            state.DanhSachKhoaHoc.splice(state.SanPhamMoiTrang);
+            return {...state}
+        }
+
+        case types.PHAN_TRANG_KHOA_HOC : {
             state.DanhSachKhoaHoc = action.dsKhoaHoc;
             return {...state}
         }
@@ -30,8 +40,22 @@ const QuanLyKhoaHocReducer = (state = stateQuanLyKhoaHoc, action) => {
             return {...state}
         }
 
+        case types.SUA_KHOA_HOC : {
+            let ds = [...state.DanhSachKhoaHoc];
+            let index = ds.findIndex(x => x.ID === action.objSua.ID);
+            if(index !== -1){
+                ds[index].Name = action.objSua.Name;
+                ds[index].Category_ID = action.objSua.Category_ID;
+                ds[index].Short_Description = action.objSua.Short_Description;
+                ds[index].Enabled = action.objSua.Enabled;
+            }
+            state.DanhSachKhoaHoc = ds;
+            document.getElementById("thoatn").click();
+            return {...state}
+        }
+
         case types.XEM_CHI_TIET_KHOA_HOC : {
-            state.ChiTietKhoaHoc = action.cctk;
+            state.ChiTietKhoaHoc = action.ctkh;
             return {...state}
         }
         default: {

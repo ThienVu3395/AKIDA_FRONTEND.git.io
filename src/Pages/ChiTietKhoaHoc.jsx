@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
-import {LayChiTietKhoaHoc} from '../Redux/Actions/HomePage/HomePage.action';
+import { LayChiTietKhoaHoc } from '../Redux/Actions/HomePage/HomePage.action';
 
 class ChiTietKhoaHoc extends Component {
-    componentDidMount(){
+    componentDidMount() {
         let idKhoaHoc = this.props.match.params.idKhoaHoc;
         this.props.LayChiTiet(idKhoaHoc);
     }
+
     render() {
         const settings = {
             infinite: true,
-            centerPadding: "60px",
             slidesToShow: 2,
             speed: 500,
             responsive: [
@@ -50,9 +50,9 @@ class ChiTietKhoaHoc extends Component {
                 <div className="details">
                     <section className="detail-header text-white p-3">
                         <div className="container">
-                            <p><NavLink to={`/trang-chu`}>Trang Chủ</NavLink> >> <span className="alert alert-danger">{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Name}</span></p>
-                            <h2>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Name}</h2>
-                            <p>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Short_Description}</p>
+                            <p><NavLink to={`/trang-chu`}>Trang Chủ</NavLink> >>{this.props.KhoaHocChiTiet.Name}</p>
+                            <h2>{this.props.KhoaHocChiTiet.Name}</h2>
+                            <p>{this.props.KhoaHocChiTiet.Short_Description}</p>
 
                             <div className="row">
                                 <div className="teacher-info col-lg-4">
@@ -60,7 +60,7 @@ class ChiTietKhoaHoc extends Component {
                                         <img src="https://static.unica.vn/uploads/thaoptt09@gmail.com/September262017946am_nguyen-van-khanh_thumb.jpg" className="rounded-circle teacher-info-image" alt="asd" />
                                     </div>
 
-                                    <p>{ this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Author}</p>
+                                    <p>{this.props.KhoaHocChiTiet === null ? "" : this.props.KhoaHocChiTiet.Author}</p>
                                 </div>
 
                                 <div className="teacher-reviews col-lg-4">
@@ -92,7 +92,7 @@ class ChiTietKhoaHoc extends Component {
                                     </div>
 
                                     {/* Bạn Sẽ Học Được Gì ? */}
-                                    <div className="detail-learn pl-4 pt-3">
+                                    {/* <div className="detail-learn pl-4 pt-3">
                                         <p>Bạn sẽ học được gì ?</p>
                                         <div className="row">
                                             <div className="learn-left col-lg-6">
@@ -129,7 +129,7 @@ class ChiTietKhoaHoc extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {/* Close Bạn Sẽ Học Được Gì ? */}
 
 
@@ -140,12 +140,10 @@ class ChiTietKhoaHoc extends Component {
                                         </div>
                                         <hr />
                                         <div className="detail-learn-content p-3 text-center">
-                                            <p>Khoá học Bước đầu với ứng dụng website trên nền tảng ASP.NET MVC hướng dẫn bạn từng bước làm việc trên nền tảng ASP.NET MVC, thực hành Lab là chính, mang đến cho bạn sự thú vị khi theo dõi.</p>
-                                            <p>Khoá học có tính thực tiễn cao, nội dung hướng đến nền tảng công nghệ nhằm phục vụ tốt việc học tập, tự nghiên cứu của học viên.</p>
-                                            <p>Thông qua khóa học, bạn sẽ hiểu được nền tảng công nghệ, và vận dụng được vào dự án thực tế</p>
-                                            <p>Đây là nền tảng công nghệ mới nhất của Microsoft để thiết kế website và xây dựng các ứng dụng quản lý trên nền tảng Internet</p>
-                                            <p>Bạn sẽ nắm vững kiến thức làm việc giữa ASP.NET MVC và Entity Framework thông tin truy vấn dữ liệu LINQ.</p>
-                                            <p>Biết quy trình làm việc của ASP.NET MVC trong dự án thực tế. Từ đó, giúp bạn tự xây dựng được ứng dụng web sử dụng ASP.NET MVC.</p>
+                                            {this.props.KhoaHocChiTiet.Content === null ?
+                                                <p>Khoá học Bước đầu với ứng dụng website trên nền tảng ASP.NET MVC hướng dẫn bạn từng bước làm việc trên nền tảng ASP.NET MVC, thực hành Lab là chính, mang đến cho bạn sự thú vị khi theo dõi.</p> :
+                                                <p dangerouslySetInnerHTML={{__html:this.props.KhoaHocChiTiet.Content}}/>
+                                            }
                                         </div>
                                     </div>
                                     {/* Gioi Thieu */}
@@ -591,14 +589,14 @@ class ChiTietKhoaHoc extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        KhoaHocChiTiet : state.HomePageReducer.KhoaHocChiTiet,
+        KhoaHocChiTiet: state.HomePageReducer.KhoaHocChiTiet,
         TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        LayChiTiet : (idKhoaHoc) => {
+        LayChiTiet: (idKhoaHoc) => {
             dispatch(LayChiTietKhoaHoc(idKhoaHoc))
         }
     }

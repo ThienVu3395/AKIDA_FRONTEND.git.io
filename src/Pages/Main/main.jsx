@@ -17,12 +17,12 @@ function SampleNextArrow() {
 export default class main extends Component {
     render() {
         const settings = {
-            infinite: false,
+            infinite: true,
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: false,
-            speed: 2000,
-            autoplaySpeed: 2000,
+            autoplay: true,
+            speed: 4000,
+            autoplaySpeed: 4000,
             nextArrow: <SampleNextArrow />,
             prevArrow: <SampleNextArrow />
         };
@@ -64,21 +64,20 @@ export default class main extends Component {
                     <div className="container pt-3">
                         <div className="row">
                             <div className="col-lg-4 col-md-4 col-sm-4 text-center">
-                                <i className="fas fa-graduation-cap" style={{ fontSize: "50px" }}></i>
+                                <i className="fas fa-graduation-cap" style={{ fontSize: "24px" }}></i>
                                 <p>7,010+ Gia Sư</p>
-                                <p>Khắp cả nước</p>
                             </div>
 
                             <div className="col-lg-4 col-md-4 col-sm-4 text-center">
-                                <i className="fas fa-user" style={{ fontSize: "50px" }}></i>
+                                <i className="fas fa-user" style={{ fontSize: "24px" }}></i>
                                 <p>7,010+ Gia Sư</p>
-                                <p>Khắp cả nước</p>
+                                
                             </div>
 
                             <div className="col-lg-4 col-md-4 col-sm-4 text-center">
-                                <i className="far fa-handshake" style={{ fontSize: "50px" }}></i>
+                                <i className="far fa-handshake" style={{ fontSize: "24px" }}></i>
                                 <p>7,010+ Gia Sư</p>
-                                <p>Khắp cả nước</p>
+                                
                             </div>
                         </div>
                     </div>

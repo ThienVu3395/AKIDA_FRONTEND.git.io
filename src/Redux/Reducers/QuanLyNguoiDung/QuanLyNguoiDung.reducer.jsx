@@ -2,14 +2,23 @@ import * as types from '../../Constants/QuanLyNguoiDung/QuanLyNguoiDung.constant
 // import Swal from 'sweetalert2';
 
 let stateQuanLyNguoiDung = {
-    DanhSachNguoiDung : []
+    DanhSachNguoiDung : [],
+    TongSoTrang : 0,
+    SanPhamMoiTrang : 5
 }
 
 const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
     switch (action.type) {
-        case types.TIM_KIEM_NGUOI_DUNG_LOC :{
-            let DanhSachUser = action.KetQuaTimDuoc;
-            state.DanhSachNguoiDung = DanhSachUser;
+        case types.LAY_DANH_SACH_NGUOI_DUNG_TUY_CHON :{
+            state.DanhSachNguoiDung =  action.dsUser;
+            let allPages = Math.ceil(action.dsUser.length/state.SanPhamMoiTrang);
+            state.TongSoTrang = allPages;
+            state.DanhSachNguoiDung.splice(state.SanPhamMoiTrang);
+            return {...state}
+        }
+
+        case types.PHAN_TRANG_NGUOI_DUNG : {
+            state.DanhSachNguoiDung = action.dsUser;
             return {...state}
         }
 
@@ -29,6 +38,10 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
                 dsUser.splice(index,1);
             }
             state.DanhSachNguoiDung = dsUser;
+            return {...state};
+        }
+
+        case types.TUY_CHINH_NGUOI_DUNG : {
             return {...state};
         }
         

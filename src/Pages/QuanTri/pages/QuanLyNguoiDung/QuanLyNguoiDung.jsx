@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
-import { XoaNguoiDung, TimKiemNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import { Table, Pagination } from 'react-bootstrap';
+import { XoaNguoiDung, TimKiemNguoiDung, TuyChinhNguoiDung , PhanTrangNguoiDung} from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
 
@@ -12,13 +12,19 @@ class QuanLyNguoiDung extends Component {
             tuKhoa: "",
             trangThaiSua: "0",
             Role: "0",
-            Activated: "-1"
+            Activated: "-1",
+            PageSelected : 1,
+
+            // Sử dụng cho Phân quyền
+            RoleQuyen: 2,
+            ActivatedQuyen: 1
         }
     }
 
     componentDidMount() {
-        this.props.TimKiemNguoiDung(this.state.Role,this.state.Activated);
+        this.props.TimKiemNguoiDung(this.state.Role, this.state.Activated);
     }
+    
 
     chonNhom = (event) => {
         const input = event.target;
@@ -27,14 +33,13 @@ class QuanLyNguoiDung extends Component {
         })
     }
 
-
     renderUsers = () => {
         let length = this.props.DanhSachNguoiDung.length;
         let content;
         if (length === 0) {
             return content = (
                 <div className="col-12 text-center">
-                    <img src="http://tatnhapkhau.com/images/page_not_found.jpg" alt="imgs"/>
+                    <img src="http://tatnhapkhau.com/images/page_not_found.jpg" alt="imgs" />
                 </div>
             )
         }
@@ -43,26 +48,16 @@ class QuanLyNguoiDung extends Component {
                 <tr key={key}>
                     <td>
                         <img src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_960_720.png" alt="Card" style={{ width: '100%', height: "200px" }} />
-                        <div className="alert alert-danger text-center mt-2">
+                        {/* <div className="alert alert-danger text-center mt-2">
                             <strong>{key + 1}</strong>
-                        </div>
+                        </div> */}
                     </td>
                     <td>
                         <div className="alert alert-primary">
-                            <strong>Họ Tên : </strong>{item.Name}
-                            <strong> ( TeamMember )</strong>
-                        </div>
-
-                        <div className="alert alert-primary">
-                            <strong>Email : </strong>{item.Email}
-                        </div>
-
-                        <div className="alert alert-primary">
-                            <strong>Số Điện Thoại : </strong>{item.Phone}
-                        </div>
-
-                        <div className="alert alert-primary">
-                            <strong>AKIDA Coins : </strong>{item.AKIDA_Number}
+                            <p><strong>Họ Tên : </strong>{item.Name}</p>
+                            <p><strong>Email : </strong>{item.Email}</p>
+                            <p><strong>Số Điện Thoại : </strong>{item.Phone}</p>
+                            <p><strong>AKIDA Coins : </strong>{item.AKIDA_Number}</p>
                         </div>
                     </td>
                     <td>
@@ -72,21 +67,21 @@ class QuanLyNguoiDung extends Component {
                             <button className="form-control btn btn-primary" onClick={() => this.setState({ trangThaiSua: "1" })} data-toggle="tooltip" title="Tùy Chỉnh"><i className="fas fa-user-cog"></i></button> :
                             <div className="container">
                                 <div className="row">
-                                    <button className="btn btn-info col-lg-6" data-toggle="tooltip" title="Cập Nhật!"><i className="fas fa-edit"></i></button>
+                                    <button className="btn btn-info col-lg-6" data-toggle="tooltip" title="Cập Nhật!" onClick={() => this.props.TuyChinhNguoiDung(item.ID_User, this.state.RoleQuyen, this.state.ActivatedQuyen)}><i className="fas fa-edit"></i></button>
                                     <button className="btn btn-primary col-lg-6" onClick={() => this.setState({ trangThaiSua: "0" })} data-toggle="tooltip" title="Hủy Tùy Chỉnh"><i className="fas fa-window-close"></i></button>
                                 </div>
                                 <div className="form-group mt-3">
                                     <label>Trạng Thái</label>
-                                    <select className="form-control">
-                                        <option>Ẩn</option>
-                                        <option>Hiển Thị</option>
+                                    <select className="form-control" name="ActivatedQuyen" defaultValue={this.state.ActivatedQuyen} onChange={this.chonNhom}>
+                                        <option value={1}>Hiển Thị</option>
+                                        <option value={0}>Ẩn</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label>Phân Quyền</label>
-                                    <select className="form-control">
-                                        <option>Giảng Viên</option>
-                                        <option>Admin</option>
+                                    <label>Quyền</label>
+                                    <select className="form-control" name="RoleQuyen" defaultValue={this.state.RoleQuyen} onChange={this.chonNhom}>
+                                        <option value={2}>TeamMember</option>
+                                        <option value={3}>User</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,6 +91,21 @@ class QuanLyNguoiDung extends Component {
             )
         })
         return content;
+    }
+
+    renderSoTrang = () => {
+        let row = [];
+        for (let i = 1; i <= this.props.TongSoTrang; i++) {
+            row.push(i)
+        }
+        return row;
+    }
+
+    PhanTrangNguoiDung = (page, Role, Activated) => {
+        this.setState({
+            PageSelected: page
+        })
+        this.props.PhanTrangNguoiDung(page, Role, Activated)
     }
     render() {
         return (
@@ -130,7 +140,7 @@ class QuanLyNguoiDung extends Component {
                     </div>
 
                     <div className="form-group col-lg-3">
-                        <button className="btn btn-success container mb-3" data-toggle="tooltip" title="Thêm User Mới" data-toggle="modal" data-target="#myModal"><i className="fas fa-calendar-plus mr-2"></i></button>
+                        <button className="btn btn-success container mb-3" data-toggle="tooltip" title="Thêm User Mới" data-toggle="modal" data-target="#myModal"><i className="fas fa-user-plus"></i></button>
                         <ModalThem tieuDe={"Thêm Người Dùng Mới"} />
                     </div>
                 </div>
@@ -149,11 +159,15 @@ class QuanLyNguoiDung extends Component {
                     <ModalDanhSach />
                 </Table>
 
-                <ul className="pagination pagination-lg justify-content-center">
-                    <li className="page-item"><a className="page-link" href="a">1</a></li>
-                    <li className="page-item"><a className="page-link" href="a">2</a></li>
-                    <li className="page-item"><a className="page-link" href="a">3</a></li>
-                </ul>
+                <Pagination className="pagination justify-content-center">
+                    {
+                        this.renderSoTrang().map((item, key) => {
+                            return (
+                                <Pagination.Item onClick={() => this.PhanTrangNguoiDung(key + 1, this.state.Role, this.state.Activated)} key={key} active={key + 1 === this.state.PageSelected}>{key + 1}</Pagination.Item>
+                            )
+                        })
+                    }
+                </Pagination>
             </div>
         )
     }
@@ -161,7 +175,8 @@ class QuanLyNguoiDung extends Component {
 
 const MapStateToProps = (state) => {
     return {
-        DanhSachNguoiDung: state.QuanLyNguoiDungReducer.DanhSachNguoiDung
+        DanhSachNguoiDung: state.QuanLyNguoiDungReducer.DanhSachNguoiDung,
+        TongSoTrang: state.QuanLyNguoiDungReducer.TongSoTrang,
     }
 }
 
@@ -178,6 +193,18 @@ const DispatchStateToProps = (dispatch) => {
             }
             return;
         },
+
+        TuyChinhNguoiDung: (idUser, Role, Active) => {
+            let cf = window.confirm("Bạn đồng ý phân quyền như vầy chứ ?");
+            if (cf) {
+                dispatch(TuyChinhNguoiDung(idUser, Role, Active))
+            }
+            return;
+        },
+
+        PhanTrangNguoiDung: (page, role, trangThai) => {
+            dispatch(PhanTrangNguoiDung(page, role, trangThai))
+        }
     }
 }
 

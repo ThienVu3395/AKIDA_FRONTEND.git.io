@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 let stateHomePage = {
     DanhSachTimKiem: [],
     TrangThaiDangNhap: localStorage.length,
-    //ThongTinCaNhan: {},
+    ThongTinCaNhan: {},
     DanhSachDanhMuc: [],
     DanhSachKhoaHocTheoDanhMuc: [],
     DanhSachKhoaHocMoiNhat: [],
@@ -57,9 +57,18 @@ const HomePageReducer = (state = stateHomePage, action) => {
         }
 
         case types.DANG_NHAP: {
+            localStorage.setItem("UserLogin",JSON.stringify(action.UserDangNhap));
             state.TrangThaiDangNhap = localStorage.length;
-            // state.ThongTinCaNhan = action.UserDangNhap;
+            state.ThongTinCaNhan = JSON.parse(localStorage.getItem("UserLogin"));
             return { ...state }
+        }
+
+        case types.DANG_KY : {
+            //let User = action.User;
+            // let DanhSachUser = [...state.DanhSachNguoiDung,User];
+            // state.DanhSachNguoiDung = DanhSachUser;
+            document.getElementById('closediba').click();
+            return {...state};
         }
 
         case types.DANG_XUAT: {
@@ -69,14 +78,27 @@ const HomePageReducer = (state = stateHomePage, action) => {
             return { ...state }
         }
 
-
-        // Dùng lại của Cyberoft
-        //Đăng ký
-        case types.DANG_KY: {
-            document.getElementById('close').click();
-            return { ...state }
+        case types.DOI_THONG_TIN_CA_NHAN : {
+            let objSuaThongTin = action.objSuaThongTin;
+            let tk = JSON.parse(localStorage.getItem("UserLogin"));
+            tk.Name = objSuaThongTin.Name;
+            tk.Email = objSuaThongTin.Email;
+            tk.Phone = objSuaThongTin.Phone;
+            state.ThongTinCaNhan = tk;
+            localStorage.removeItem("UserLogin");
+            localStorage.setItem("UserLogin",JSON.stringify(tk));
+            return {...state}
         }
 
+        case types.KIEM_TRA_THONG_TIN_CA_NHAN : {
+            state.ThongTinCaNhan = JSON.parse(localStorage.getItem("UserLogin"));
+            return {...state}
+        }
+
+        case types.DOI_MAT_KHAU : {
+            return {...state }
+        }
+        
         default: {
             return { ...state };
         }

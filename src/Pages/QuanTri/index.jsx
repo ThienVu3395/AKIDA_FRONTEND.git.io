@@ -16,7 +16,7 @@ class index extends Component {
         }
         else {
             let User = JSON.parse(localStorage.getItem('UserLogin'));
-            if(User.Role !== "1"){
+            if(User.Role_ID !== 1){
                 Swal.fire("Xin Lỗi", "Bạn Không Có Quyền Để Truy Cập Vào Trang Này", "error");
                 return <Redirect to={TrangChu}/>
             }
