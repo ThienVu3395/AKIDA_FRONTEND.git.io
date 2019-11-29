@@ -25,7 +25,7 @@ export const LayDanhSachKhoaHocTheoTuyChon = (idDanhMuc, trangThai) => {
                 dsKhoaHoc: result.data
             })
         }).catch((error) => {
-            Swal.fire("Thông Báo", error.message.data, "error");
+            Swal.fire("Thông Báo","Không Tìm Thấy", "error");
         })
     }
 }

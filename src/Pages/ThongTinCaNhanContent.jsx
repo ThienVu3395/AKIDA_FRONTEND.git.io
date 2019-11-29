@@ -23,6 +23,20 @@ class ThongTinCaNhanContent extends Component {
         })
     }
 
+    renderRoleName = () => {
+        let RoleName = "";
+        if (this.props.TrangThaiDangNhap !== 0) {
+            let tk = JSON.parse(localStorage.getItem("UserLogin"));
+            if(tk.Role_ID === 3){
+                RoleName = "User"
+            }
+            else if(tk.Role_ID === 2){
+                RoleName = "TeamMember"
+            }
+            return RoleName;
+        }
+    }
+
     componentDidMount() {
         this.props.KiemTraThongTinCaNhan();
         if (this.props.TrangThaiDangNhap !== 0) {
@@ -59,6 +73,9 @@ class ThongTinCaNhanContent extends Component {
         if (this.props.TrangThaiDangNhap !== 0) {
             return (
                 <>
+                    <div className="alert alert-success">
+                        <strong>Bạn Đang Là {this.renderRoleName()} Của AKIDA</strong>
+                    </div>
                     <div className="row">
                         <div className="col-6">
                             <div className="form-group">
@@ -123,14 +140,19 @@ class ThongTinCaNhanContent extends Component {
             <div>
                 <Row>
                     <Col sm="6">
-                        <div>
+                        <Card body>
+                            {this.renderThongTin()}
+                        </Card>
+                        {/* <div>
                             <img src="https://thehappypuppysite.com/wp-content/uploads/2018/10/miniature-pug-long.jpg" alt="asda" style={{ height: "283px", width: "100%" }} />
                         </div>
 
                         <div className="form-group mt-2">
                             <input type="file" className="form-control p-1" />
-                        </div>
+                        </div> */}
+                    </Col>
 
+                    <Col sm="6">
                         <Card body>
                             <div className="container text-center">
                                 <div>
@@ -145,11 +167,6 @@ class ThongTinCaNhanContent extends Component {
                                 </div>
                             </div>
                         </Card>
-                    </Col>
-
-                    <Col sm="6">
-                        {this.renderThongTin()}
-
                         {/* <div className="row">
                             <div className="col-6">
                                 <div className="form-group">

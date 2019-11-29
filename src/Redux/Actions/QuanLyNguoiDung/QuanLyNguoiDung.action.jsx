@@ -25,7 +25,7 @@ export const TimKiemNguoiDung = (Role, Activated) => {
                 dsUser: result.data
             })
         }).catch((error) => {
-            Swal.fire("Thông Báo", "Có Lổi", "error");
+            Swal.fire("Thông Báo", "Không Tìm Thấy", "error");
         })
     }
 }

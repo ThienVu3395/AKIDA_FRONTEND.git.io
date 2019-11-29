@@ -8,23 +8,36 @@ class ModelDangNhapDangKy extends Component {
         super(props);
         this.state = {
             Activated: "1",
-            Name : "",
-            Email : "",
-            Phone : "",
-            Password:"",
-            AKIDA_Number : 0,
-            Created_Time : "2012/12/12",
-            Role_ID : "3"
+            Name: "",
+            Email: "",
+            Phone: "",
+            Password: "",
+            AKIDA_Number: 0,
+            Created_Time: "2012/12/12",
+            Role_ID: "3",
         }
     }
 
     layThongTinInput = (event) => {
         const input = event.target;
         this.setState({
-            [input.name]: input.value
+            [input.name]: input.value,
         })
     }
-    
+
+    enterKeyPress = (event, tt) => {
+        if (event.keyCode === 13 && tt === "dk") {
+            let cf = window.confirm("Bạn chắc chắn đăng ký thành viên với các thông tin trên chứ ?");
+            if (cf) {
+                this.props.DangKy(this.state);
+            }
+        }
+
+        else if (event.keyCode === 13 && tt === "dn") {
+            this.props.DangNhap(this.state.Email, this.state.Password)
+        }
+    }
+
     render() {
         return (
             <div>
@@ -50,14 +63,23 @@ class ModelDangNhapDangKy extends Component {
                             <div className="modal-body">
                                 <div className="tab-content">
                                     {/* Form Đăng Nhập */}
-                                    <div id="home" className="container tab-pane active"><br />
-                                        <input type="text" className="form-control mb-3" name="Email" placeholder="Nhập Email" onChange={this.layThongTinInput} />
+                                    <div id="home" className="container tab-pane active" onKeyDown={(e, tt) => this.enterKeyPress(e, "dn")}>
+                                        <div className="form-group">
+                                            <label>Email:</label>
+                                            <input type="text" name="Email" className="form-control" placeholder="Nhập Email" onChange={this.layThongTinInput} />
+                                        </div>
 
-                                        <input type="password" className="form-control mb-3" name="Password" placeholder="Mật Khẩu Từ 6-32 Ký Tự" onChange={this.layThongTinInput} />
+                                        <div className="form-group">
+                                            <label>Password:</label>
+                                            <input type="password" name="Password" className="form-control" placeholder="Nhập Mật Khẩu" onChange={this.layThongTinInput} />
+                                        </div>
+                                        {/* <input type="text" className="form-control mb-3" name="Email" placeholder="Nhập Email" onChange={this.layThongTinInput} />
+
+                                        <input type="password" className="form-control mb-3" name="Password" placeholder="Mật Khẩu Từ 6-32 Ký Tự" onChange={this.layThongTinInput} /> */}
 
                                         {/* <p className="text-center">Bạn Quên Mật Khẩu ? Nhấn Vào <a href="asdas.html">Đây</a></p> */}
 
-                                        <button className="loginbtn container" onClick={() => this.props.DangNhap(this.state.Email,this.state.Password)} data-dismiss="modal">Đăng Nhập</button>
+                                        <button className="loginbtn container" hidden={this.state.trangThaiLoi === 1} onClick={() => this.props.DangNhap(this.state.Email, this.state.Password)} data-dismiss="modal">Đăng Nhập</button>
                                         <hr />
                                         {/* <button className="btn fb container fb mb-3"><i className="fab fa-facebook-f mr-2"></i>Đăng Nhập Bằng Facebook</button>
 
@@ -66,7 +88,7 @@ class ModelDangNhapDangKy extends Component {
                                     {/* Close Form Đăng Nhập */}
 
                                     {/* Form Đăng Ký */}
-                                    <div id="menu1" className="container tab-pane fade"><br />
+                                    <div id="menu1" className="container tab-pane fade" onKeyDown={(e, tt) => this.enterKeyPress(e, "dk")}>
                                         <div className="form-group">
                                             <label>Name:</label>
                                             <input type="text" name="Name" className="form-control" onChange={this.layThongTinInput} />
@@ -76,18 +98,19 @@ class ModelDangNhapDangKy extends Component {
                                             <label>Email:</label>
                                             <input type="text" name="Email" className="form-control" onChange={this.layThongTinInput} />
                                         </div>
-                                        
+
                                         <div className="form-group">
                                             <label>Password:</label>
-                                            <input type="password" name="Password" className="form-control" onChange={this.layThongTinInput}/>
+                                            <input type="password" name="Password" className="form-control" onChange={this.layThongTinInput} />
                                         </div>
 
                                         <div className="form-group">
                                             <label>Phone:</label>
-                                            <input type="text" name="Phone" className="form-control" onChange={this.layThongTinInput}/>
+                                            <input type="text" name="Phone" className="form-control" onChange={this.layThongTinInput} />
                                         </div>
 
                                         <button className="container loginbtn mb-1 mt-2" onClick={() => this.props.DangKy(this.state)}>Đăng Ký</button>
+
                                         <hr />
                                         {/* <button className="btn fb container fb mb-3"><i className="fab fa-facebook-f mr-2"></i>Đăng Ký Bằng Facebook</button>
                                         <button className="btn gg container gg"><i className="fab fa-google mr-2"></i>Đăng Ký Bằng Google</button> */}
@@ -105,8 +128,8 @@ class ModelDangNhapDangKy extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        DangNhap: (mail,pass) => {
-            dispatch(DangNhap(mail,pass))
+        DangNhap: (mail, pass) => {
+            dispatch(DangNhap(mail, pass))
         },
 
         DangKy: (objDangKy) => {

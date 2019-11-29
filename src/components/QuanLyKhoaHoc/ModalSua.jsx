@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CKEditor from "react-ckeditor-component";
 import { SuaKhoaHoc } from '../../Redux/Actions/QuanLyKhoaHoc/QuanLyKhoaHoc.action'
 
-class ModalThem extends Component {
+class ModalSua extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,19 +11,20 @@ class ModalThem extends Component {
             Category_ID: "",
             Short_Description: "",
             Enabled: "",
-            Image : ""
+            Image : "",
+            Content : "",
         };
     }
 
-    componentDidMount(){
-        let ctkh = JSON.parse(localStorage.getItem('ChiTietKhoaHoc'));
-        this.setState({
-            Name : ctkh.Name,
-            Category_ID: ctkh.Category_ID,
-            Short_Description: ctkh.Short_Description,
-            Enabled: ctkh.Enabled,
-        })
-    }
+    // componentDidMount(){
+    //     // let ctkh = JSON.parse(localStorage.getItem('ChiTietKhoaHoc'));
+    //     // this.setState({
+    //     //     Name : ctkh.Name,
+    //     //     Category_ID: ctkh.Category_ID,
+    //     //     Short_Description: ctkh.Short_Description,
+    //     //     Enabled: ctkh.Enabled,
+    //     // })
+    // }
 
     layThongTinInput = (event) => {
         const input = event.target;
@@ -96,7 +97,7 @@ class ModalThem extends Component {
 
                                     <div className="form-group col-6">
                                         <label htmlFor="sel1">Trạng Thái :</label>
-                                        <select className="form-control" name="Enabled" defaultValue={this.props.ChiTietKhoaHoc.Enabled} onChange={this.layThongTinInput} >
+                                        <select className="form-control" name="Enabled" defaultValue={this.props.ChiTietKhoaHoc === ""  ? this.props.ChiTietKhoaHoc.Enabled : ""} onChange={this.layThongTinInput} >
                                             <option value={1}>Hiện</option>
                                             <option value={0}>Ẩn</option>
                                         </select>
@@ -151,4 +152,4 @@ const DispatchStateToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, DispatchStateToProps)(ModalThem)
+export default connect(mapStateToProps, DispatchStateToProps)(ModalSua)

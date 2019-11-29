@@ -13,7 +13,7 @@ class ModalThem extends Component {
             Created_Time: "2012/12/12",
             AKIDA_Number: 0,
             Phone: "",
-            Role: "3"
+            Role_ID: "3"
         }
     }
 
@@ -70,7 +70,7 @@ class ModalThem extends Component {
 
                                     <div className="form-group col-lg-6">
                                         <label>Quyền</label>
-                                        <select className="form-control" defaultValue={this.state.Role} onChange={this.layThongTinInput} name="Role">
+                                        <select className="form-control" defaultValue={this.state.Role_ID} onChange={this.layThongTinInput} name="Role_ID">
                                             <option value="2">Giảng Viên</option>
                                             <option value="3">User</option>
                                         </select>

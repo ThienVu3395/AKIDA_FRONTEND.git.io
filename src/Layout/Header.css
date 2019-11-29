@@ -133,6 +133,8 @@
     color:#fff;
     background-color:#ec5252;
     border: 1px solid transparent;
+    font-size : 14x;
+    height: 30px;
 }
 .loginbtn {
     color:#fff;background-color:#ec5252;
@@ -246,7 +248,7 @@
       .myNavBar #myNavBarID .nav-item .nav-link {
         color: #505763;
         font-size: 13px;
-        font-weight: normal;
+        /* font-weight: normal; */
         margin-top: 5px; }
       .myNavBar #myNavBarID .nav-item:hover {
         background-color: rgba(20, 23, 28, 0.05); }
@@ -258,10 +260,10 @@
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       -ms-border-radius: 50%;
-      -o-border-radius: 50%;
-      max-width: 50px; }
+      -o-border-radius: 50%; }
       .myNavBar #myNavBarID .icon_cart i {
-        font-size: 20px; }
+        font-size: 20px; 
+        max-width: 50px; }
     .myNavBar #myNavBarID .nav__button:hover {
       background-color: transparent; }
     @media screen and (max-width: 1200px) {
@@ -272,12 +274,13 @@
         display: none; } }
   
   .button__login {
-    font-weight: 600;
-    font-size: 15px;
+    /* font-weight: 600;
+    font-size: 15px; */
     color: #686f7a;
     background-color: #fff;
-    border: 1px solid #505763;
-    padding: 11px 12px; }
+    border: 1px solid #787b81;
+    /* padding: 11px 12px; } */
+  }
     .button__login:hover {
       background-color: rgba(20, 23, 28, 0.05); }
   

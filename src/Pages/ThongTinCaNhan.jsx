@@ -25,6 +25,20 @@ class ThongTinCaNhan extends React.Component {
         }
     }
 
+    renderRoleAction = () => {
+        let ActionName = "";
+        if (this.props.TrangThaiDangNhap !== 0) {
+            let tk = JSON.parse(localStorage.getItem("UserLogin"));
+            if(tk.Role_ID === 3){
+                ActionName = "Khóa Học Đã Đăng Ký"
+            }
+            else if(tk.Role_ID === 2){
+                ActionName = "Khóa Học Đã Giảng Dạy"
+            }
+            return ActionName;
+        }
+    }
+
     render() {
         if (this.props.TrangThaiDangNhap === 0) {
             return <Redirect to='/trang-chu' />
@@ -48,7 +62,7 @@ class ThongTinCaNhan extends React.Component {
                                 className={classnames({ active: this.state.activeTab === '2' })}
                                 onClick={() => { this.toggle('2'); }}
                             >
-                                <i className="fas fa-book mr-2"></i>Khóa Học Đã Đăng Ký
+                                <i className="fas fa-book mr-2"></i>{this.renderRoleAction()}
                             </NavLink>
                         </NavItem>
                     </Nav>

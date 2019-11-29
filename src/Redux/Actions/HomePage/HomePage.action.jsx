@@ -197,6 +197,13 @@ export const KiemTraThongTinCaNhan = () => {
     }
 }
 
+export const ThemVaoGioHang = (idKhoaHoc,idUser) => {
+    return ( dispatch ) => {
+        alert(idKhoaHoc);
+        alert(idUser)
+    }
+}
+
 export const DoiMatKhau = (objUser) => {
     return (dispatch) => {
         let objDoiMatKhau = {

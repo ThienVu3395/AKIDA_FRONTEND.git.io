@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
+import {ThemVaoGioHang} from '../../../Redux/Actions/HomePage/HomePage.action';
 
 class KhoaHoc extends Component {
     renderName = (string) => {
@@ -13,12 +15,21 @@ class KhoaHoc extends Component {
         }
         return stringReplaced;
     }
+
+    renderUserName = () => {
+        let UserName = "";
+        let tk = JSON.parse(localStorage.getItem('UserLogin'));
+        if(tk !== null){
+            UserName = tk.ID_User
+        }
+        return UserName;
+    }
     render() {
         return (
-            <div className="card">
-                <div className="card-img">
+            <div className="card mr-2">
+                <div className="card-img" style={{height:"150px"}}>
                     <NavLink to={`/chi-tiet-khoa-hoc/${this.props.KhoaHoc.ID}`}>
-                        <img className="img-fluid" src={this.props.KhoaHoc.Image !== null ? this.props.KhoaHoc.Image : window.location.origin + '/Img/KhoaHoc/kh3.jpg'} alt="Card" />
+                        <img className="img" src={this.props.KhoaHoc.Image !== null ? this.props.KhoaHoc.Image : window.location.origin + '/Img/KhoaHoc/kh3.jpg'} alt="Card" height="100%" width="100%"/>
                     </NavLink>
                 </div>
                 <div className="card-body">
@@ -45,6 +56,7 @@ class KhoaHoc extends Component {
                                 <p><b>500,000<sup>đ</sup></b></p>
                             </div>
                         </div>
+                        <button className="btn btn-info container" onClick={()=>this.props.ThemVaoGioHang(this.props.KhoaHoc.ID,this.renderUserName())}><i className="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -52,10 +64,22 @@ class KhoaHoc extends Component {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
+const mapDispatchToProps = (dispatch) => {
+    return {
+        ThemVaoGioHang : (idKhoaHoc,idUser) => {
+            if(idUser === "" ){
+                Swal.fire("Bạn Chưa Đăng Nhập", "Xin Vui Lòng Đăng Nhập", 'error');
+                return;
+            }
+            else{
+                let cf = window.confirm("Bạn chắc chắn đăng ký khóa học này chứ ?");
+                if(cf){
+                    dispatch(ThemVaoGioHang(idKhoaHoc,idUser))
+                }
+                return;
+            }
+        }
+    }
+}
 
-//     }
-// }
-
-export default connect(null, null)(KhoaHoc)
+export default connect(null, mapDispatchToProps)(KhoaHoc)

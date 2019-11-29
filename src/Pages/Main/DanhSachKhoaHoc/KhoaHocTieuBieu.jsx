@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 class KhoaHocTieuBieu extends Component {
     renderName = (string) => {
         let stringReplaced = "";
-        if(string.length > 48){
-            stringReplaced = string.slice(-0,50) + "......";
+        if (string.length > 48) {
+            stringReplaced = string.slice(-0, 50) + "......";
         }
         else {
             stringReplaced = string;
@@ -15,15 +15,15 @@ class KhoaHocTieuBieu extends Component {
     }
     render() {
         return (
-            <div className="card">
-                <div className="card-img">
+            <div className="card mr-2">
+                <div className="card-img" style={{ height: "150px" }}>
                     <NavLink to={`/chi-tiet-khoa-hoc/${this.props.KhoaHoc.ID}`}>
-                    <img className="img-fluid" src={this.props.KhoaHoc.Image !== null ? this.props.KhoaHoc.Image : window.location.origin + '/Img/KhoaHoc/kh3.jpg'} alt="Card" />
+                        <img className="img" src={this.props.KhoaHoc.Image !== null ? this.props.KhoaHoc.Image : window.location.origin + '/Img/KhoaHoc/kh3.jpg'} alt="Card" height="100%" width="100%" />
                     </NavLink>
                 </div>
                 <div className="card-body">
-                <div className="parent">
-                        <div style={{minHeight:"50px"}}>
+                    <div className="parent">
+                        <div style={{ minHeight: "50px" }}>
                             <NavLink to={`/chi-tiet-khoa-hoc/${this.props.KhoaHoc.ID}`}>{this.renderName(this.props.KhoaHoc.Name)}</NavLink>
                         </div>
 
@@ -45,6 +45,7 @@ class KhoaHocTieuBieu extends Component {
                                 <p><b>500,000<sup>đ</sup></b></p>
                             </div>
                         </div>
+                        <button className="btn btn-info container"><i className="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>

@@ -27,6 +27,7 @@ class QuanLyKhoaHoc extends Component {
         this.setState({
             ID: idKH
         })
+        alert(idKH)
         this.props.XemThongTinKhoaHoc(idKH);
     }
 

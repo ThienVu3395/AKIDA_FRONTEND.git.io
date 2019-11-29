@@ -38,7 +38,7 @@ class ModalThem extends Component {
         this.setState({
             File : img
         })
-        const uploadTask = storage.ref(`image/${img.name}`).put(img);
+        const uploadTask = storage.ref(`image/KhoaHoc/${img.name}`).put(img);
         uploadTask.on('state_changed',
         (snapshot) => {
             
@@ -48,7 +48,7 @@ class ModalThem extends Component {
             console.log(error)
         },
         () => {
-            storage.ref('image').child(img.name).getDownloadURL().then(url=>{
+            storage.ref('image/KhoaHoc/').child(img.name).getDownloadURL().then(url=>{
                 this.setState({
                     Image : url
                 })

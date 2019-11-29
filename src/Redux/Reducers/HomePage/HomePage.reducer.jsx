@@ -11,6 +11,8 @@ let stateHomePage = {
     DanhSacKhoaHocTieuBieu: [],
     DanhSachGiaoVien : [],
     KhoaHocChiTiet: {},
+    DanhSachKhoaHocDaDangKy : [],
+    SoLuongGioHang : 0
 }
 
 const HomePageReducer = (state = stateHomePage, action) => {

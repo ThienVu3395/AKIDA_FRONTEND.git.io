@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Header.css';
-import { TimKiemKhoaHoc, DangXuat , KiemTraThongTinCaNhan } from '../Redux/Actions/HomePage/HomePage.action';
+import { TimKiemKhoaHoc, DangXuat, KiemTraThongTinCaNhan } from '../Redux/Actions/HomePage/HomePage.action';
 import ModalDangNhapDangKy from '../components/DangNhapDangKy/ModelDangNhapDangKy';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -21,7 +21,7 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        this.props.KiemTraThongTinCaNhan()
+        this.props.KiemTraThongTinCaNhan();
     }
 
     hienThiDangNhap = () => {
@@ -34,13 +34,21 @@ class Header extends Component {
             );
         }
         else {
+            let tk = JSON.parse(localStorage.getItem('UserLogin'));
             return (
                 <div className="nav-item dropdown button button__login">
                     <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="asdasd"><span className="text-danger text-uppercase"><i className="fas fa-user-cog mr-2"></i><b>{this.props.ThongTinCaNhan.Name}</b></span></a>
                     <div className="dropdown-menu">
-                        <NavLink className="dropdown-item" to='/thong-tin-cua-ban'><i className="fas fa-user mr-2"></i>Thông Tin Của Bạn</NavLink>
-                        <NavLink className="dropdown-item" to='/kich-hoat-khoa-hoc'><i className="fas fa-key mr-2"></i>Kích Hoạt Khóa Học</NavLink>
-                        <NavLink className="dropdown-item" to='/nap-the'><i className="fa fa-credit-card mr-2" aria-hidden="true"></i>Nạp Thẻ</NavLink>
+                        {
+                            tk.Role_ID !== 1 ?
+                                <div>
+                                    <NavLink className="dropdown-item" to='/thong-tin-cua-ban'><i className="fas fa-user mr-2"></i>Thông Tin Của Bạn</NavLink>
+                                    <NavLink className="dropdown-item" to='/kich-hoat-khoa-hoc'><i className="fas fa-key mr-2"></i>Kích Hoạt Khóa Học</NavLink>
+                                    <NavLink className="dropdown-item" to='/nap-the'><i className="fa fa-credit-card mr-2" aria-hidden="true"></i>Nạp Thẻ</NavLink>
+                                </div> 
+                            : 
+                            ""
+                        }
                         <hr />
                         <button className="dropdown-item" onClick={() => this.props.DangXuat()}><i className="fas fa-sign-out-alt mr-2"></i>Đăng Xuất</button>
                     </div>
@@ -113,22 +121,25 @@ class Header extends Component {
                     <div className="col-xl-6 col-lg-3 col-md-4 col-sm-6">
                         <div className="collapse navbar-collapse" id="myNavBarID">
                             <ul className="navbar-nav w-100 d-flex text-center">
-                                <li className="nav-item bussiness">
+                                {/* <li className="nav-item bussiness">
                                     <a className="nav-link" href="a">Udemy for Business</a>
                                     <div className="overlay">
                                         <p>Get your team access to Udemy’s top 2,500 courses anytime, anywhere.</p>
                                         <a href="a">Try Udemy For Bussiness</a>
                                     </div>
-                                </li>
-                                <li className="nav-item instructor">
+                                </li> */}
+                                {/* <li className="nav-item instructor">
                                     <a className="nav-link" href="abv">Become an Instructor</a>
                                     <div className="overlay">
                                         <p>Get your team access to Udemy’s top 2,500 courses anytime, anywhere.</p>
                                         <a href="a">Try Udemy For Bussiness</a>
                                     </div>
+                                </li> */}
+                                <li className="nav-item icon_cart">
+                                    <a className="nav-link" href="abc"><i className="fa fa-bell" /></a>
                                 </li>
                                 <li className="nav-item icon_cart">
-                                    <a className="nav-link " href="abc"><i className="fa fa-shopping-cart" /></a>
+                                    <a className="nav-link" href="abc"><i className="fa fa-shopping-cart" /><sup className="ml-2 text-danger" style={{ fontSize: "12px" }}>{this.props.SoLuongGioHang}</sup></a>
                                 </li>
                                 <li className="nav-item nav__button">
                                     {this.hienThiDangNhap()}
@@ -176,8 +187,9 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ThongTinCaNhan : state.HomePageReducer.ThongTinCaNhan,
-        TrangThaiDangNhap : state.HomePageReducer.TrangThaiDangNhap
+        ThongTinCaNhan: state.HomePageReducer.ThongTinCaNhan,
+        TrangThaiDangNhap: state.HomePageReducer.TrangThaiDangNhap,
+        SoLuongGioHang : state.HomePageReducer.SoLuongGioHang
     }
 }
 

@@ -4,6 +4,7 @@ import * as types from '../../Constants/QuanLyNguoiDung/QuanLyNguoiDung.constant
 let stateQuanLyNguoiDung = {
     DanhSachNguoiDung : [],
     TongSoTrang : 0,
+    TongSoSanPham : 0,
     SanPhamMoiTrang : 5
 }
 
@@ -13,6 +14,7 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
             state.DanhSachNguoiDung =  action.dsUser;
             let allPages = Math.ceil(action.dsUser.length/state.SanPhamMoiTrang);
             state.TongSoTrang = allPages;
+            state.TongSoSanPham = action.dsUser[0].Count;
             state.DanhSachNguoiDung.splice(state.SanPhamMoiTrang);
             return {...state}
         }
@@ -23,10 +25,11 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
         }
 
         case types.THEM_NGUOI_DUNG : {
-            let User = action.User;
-            let DanhSachUser = [...state.DanhSachNguoiDung,User];
+            let DanhSachUser = [...state.DanhSachNguoiDung,action.User];
             state.DanhSachNguoiDung = DanhSachUser;
-            document.getElementById('thoatne').click();
+            let allPages = Math.ceil((state.TongSoSanPham + 1 ) / state.SanPhamMoiTrang);
+            state.TongSoTrang = allPages;
+            document.getElementById("thoatne").click();
             return {...state};
         }
 
@@ -36,8 +39,11 @@ const QuanLyNguoiDungReducer = (state = stateQuanLyNguoiDung, action) => {
             let index = dsUser.findIndex(x => x.ID_User === idUser);
             if(index !== -1){
                 dsUser.splice(index,1);
+                let allPages = Math.ceil((state.TongSoSanPham - 1 ) / state.SanPhamMoiTrang);
+                state.TongSoTrang = allPages;
+                state.DanhSachNguoiDung = dsUser;
+                document.getElementById("thoatne").click();
             }
-            state.DanhSachNguoiDung = dsUser;
             return {...state};
         }
 

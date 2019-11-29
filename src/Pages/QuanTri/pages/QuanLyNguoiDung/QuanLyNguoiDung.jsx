@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Pagination } from 'react-bootstrap';
-import { XoaNguoiDung, TimKiemNguoiDung, TuyChinhNguoiDung , PhanTrangNguoiDung} from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
+import { XoaNguoiDung, TimKiemNguoiDung, TuyChinhNguoiDung, PhanTrangNguoiDung } from '../../../../Redux/Actions/QuanLyNguoiDung/QuanLyNguoiDung.action';
 import ModalThem from './../../../../components/QuanLyNguoiDung/ModalThem';
 import ModalDanhSach from './../../../../components/QuanLyNguoiDung/ModalDanhSach';
 
@@ -10,10 +10,10 @@ class QuanLyNguoiDung extends Component {
         super(props);
         this.state = {
             tuKhoa: "",
-            trangThaiSua: "0",
+            // trangThaiSua: "0",
             Role: "0",
             Activated: "-1",
-            PageSelected : 1,
+            PageSelected: 1,
 
             // Sử dụng cho Phân quyền
             RoleQuyen: 2,
@@ -24,7 +24,7 @@ class QuanLyNguoiDung extends Component {
     componentDidMount() {
         this.props.TimKiemNguoiDung(this.state.Role, this.state.Activated);
     }
-    
+
 
     chonNhom = (event) => {
         const input = event.target;
@@ -46,21 +46,47 @@ class QuanLyNguoiDung extends Component {
         content = this.props.DanhSachNguoiDung.map((item, key) => {
             return (
                 <tr key={key}>
-                    <td>
+                    {/* <td>
                         <img src="https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_960_720.png" alt="Card" style={{ width: '100%', height: "200px" }} />
-                        {/* <div className="alert alert-danger text-center mt-2">
+                        <div className="alert alert-danger text-center mt-2">
                             <strong>{key + 1}</strong>
-                        </div> */}
-                    </td>
+                        </div>
+                    </td> */}
                     <td>
-                        <div className="alert alert-primary">
-                            <p><strong>Họ Tên : </strong>{item.Name}</p>
-                            <p><strong>Email : </strong>{item.Email}</p>
-                            <p><strong>Số Điện Thoại : </strong>{item.Phone}</p>
-                            <p><strong>AKIDA Coins : </strong>{item.AKIDA_Number}</p>
+                        <div className="container">
+                            <div className="row">
+                                <div className="alert alert-danger col-lg-6">
+                                    <p><strong>Họ Tên : </strong>{item.Name}</p>
+                                    <p><strong>Email : </strong>{item.Email}</p>
+                                    <p><strong>Số Điện Thoại : </strong>{item.Phone}</p>
+                                    <p><strong>AKIDA Coins : </strong>{item.AKIDA_Number}</p>
+                                    <button className="form-control btn btn-primary mb-3" data-toggle="tooltip" title="Xem Danh Sách" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
+                                    <button className="form-control btn btn-danger" onClick={() => this.props.XoaUser(item.ID_User)} data-toggle="tooltip" title="Xóa User Này"><i className="fas fa-trash-alt"></i></button>
+                                </div>
+
+                                <div className="alert alert-warning col-lg-6">
+                                    <div className="form-group">
+                                        <label>Trạng Thái</label>
+                                        <select className="form-control" name="ActivatedQuyen" defaultValue={this.state.ActivatedQuyen} onChange={this.chonNhom}>
+                                            <option value={1}>Hiển Thị</option>
+                                            <option value={0}>Ẩn</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label>Quyền</label>
+                                        <select className="form-control" name="RoleQuyen" defaultValue={this.state.RoleQuyen} onChange={this.chonNhom}>
+                                            <option value={2}>TeamMember</option>
+                                            <option value={3}>User</option>
+                                        </select>
+                                    </div>
+
+                                    <button className="btn btn-info container" data-toggle="tooltip" title="Cập Nhật!" onClick={() => this.props.TuyChinhNguoiDung(item.ID_User, this.state.RoleQuyen, this.state.ActivatedQuyen)}><i className="fas fa-edit"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </td>
-                    <td>
+                    {/* <td>
                         <button className="form-control btn btn-primary mb-3" data-toggle="tooltip" title="Xem Danh Sách" data-toggle="modal" data-target="#ModalDanhSachNguoiDung"><i className="fas fa-list"></i></button>
                         <button className="form-control btn btn-danger mb-3" onClick={() => this.props.XoaUser(item.ID_User)} data-toggle="tooltip" title="Xóa User Này"><i className="fas fa-trash-alt"></i></button>
                         {this.state.trangThaiSua === "0" ?
@@ -86,7 +112,7 @@ class QuanLyNguoiDung extends Component {
                                 </div>
                             </div>
                         }
-                    </td>
+                    </td> */}
                 </tr>
             )
         })
@@ -148,9 +174,8 @@ class QuanLyNguoiDung extends Component {
                 <Table striped bordered hover responsive="md">
                     <thead>
                         <tr>
-                            <th>Hình Ảnh</th>
-                            <th>Thông Tin Người Dùng</th>
-                            <th>Thao Tác</th>
+                            <th className="text-center">Thông Tin Người Dùng & Thao Tác</th>
+                            {/* <th>Thao Tác</th> */}
                         </tr>
                     </thead>
                     <tbody>
